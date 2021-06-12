@@ -1,57 +1,50 @@
-package classemodelosveiculos;
+package mecanica.model.domain;
 
-//package mecanica.model.domain;
-
-/**
- *
- * @author Andre
- */
 import java.io.Serializable;
 
+public class ModeloVeiculo implements Serializable {
 
-public class ModeloVeiculo implements Serializable{
     private Integer cdVeiculo;
     private Boolean moto;
     private String nome;
     private String descricao;
 
-    
-    public int getcdVeiculo(){
+    public int getcdVeiculo() {
         return cdVeiculo;
     }
-    
-    public void setcdVeiculo(int cdVeiculo){
+
+    public void setcdVeiculo(int cdVeiculo) {
         this.cdVeiculo = cdVeiculo;
     }
-    
-    public Boolean getMoto(){
+
+    public Boolean getMoto() {
         return this.moto;
     }
-    
-    public void setMoto(Boolean moto){
+
+    public void setMoto(boolean moto) {
         this.moto = moto;
     }
-    
-    public String getNome(){
+
+    public String getNome() {
         return this.nome;
     }
-    
-    public void setNome(String nome){
+
+    public void setNome(String nome) {
         this.nome = nome;
     }
-    
-    public String getDescricao(){
+
+    public String getDescricao() {
         return this.descricao;
     }
-    
-    public void setDescricao(String descricao){
+
+    public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-    
+
     @Override
-    public String toString(){
-        
-        return String.format("(Id: %d, Moto: %b, Nome: %s, Descrição: %s)", 
+    public String toString() {
+
+        return String.format("(Id: %d, Moto: %b, Nome: %s, Descrição: %s)",
                 cdVeiculo, moto, nome, descricao);
     }
 }
