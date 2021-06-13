@@ -4,20 +4,20 @@ import java.io.Serializable;
 
 public class ModeloVeiculo implements Serializable {
 
-    private Integer cdVeiculo;
-    private Boolean moto;
+    private Integer cdModeloVeiculo;
+    private boolean moto;
     private String nome;
     private String descricao;
 
-    public int getcdVeiculo() {
-        return cdVeiculo;
+    public int getcdModeloVeiculo() {
+        return cdModeloVeiculo;
     }
 
-    public void setcdVeiculo(int cdVeiculo) {
-        this.cdVeiculo = cdVeiculo;
+    public void setcdModeloVeiculo(int cdModeloVeiculo) {
+        this.cdModeloVeiculo = cdModeloVeiculo;
     }
 
-    public Boolean getMoto() {
+    public boolean getMoto() {
         return this.moto;
     }
 
@@ -45,6 +45,6 @@ public class ModeloVeiculo implements Serializable {
     public String toString() {
 
         return String.format("(Id: %d, Moto: %b, Nome: %s, Descrição: %s)",
-                cdVeiculo, moto, nome, descricao);
+                cdModeloVeiculo, moto, nome, descricao);
     }
 }
