@@ -10,24 +10,21 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import mecanica.model.domain.Cliente;
 
-/**
- *
- * @author elian
- */
 public class ClienteDAO {
+
     private Connection connection;
-    
-    public Connection getConnection(){
+
+    public Connection getConnection() {
         return connection;
     }
-    
-    public void setConnection(Connection connection){
+
+    public void setConnection(Connection connection) {
         this.connection = connection;
     }
-    
-    public boolean inserir(Cliente cliente){
+
+    public boolean inserir(Cliente cliente) {
         String sql = "INSERT INTO cliente (cpf, nome, nascimento, cidade, uf) VALUES (?,?,?,?,?);";
-        try{
+        try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, cliente.getCpf());
             stmt.setString(2, cliente.getNome());
@@ -36,16 +33,15 @@ public class ClienteDAO {
             stmt.setString(5, cliente.getUf());
             stmt.execute();
             return true;
-        }
-        catch(SQLException ex){
+        } catch (SQLException ex) {
             Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
-    
-    public boolean alterar(Cliente cliente){
+
+    public boolean alterar(Cliente cliente) {
         String sql = "UPDATE cliente SET nome=?, nascimento=?, cidade=?, uf=? WHERE cpf=?;";
-        try{
+        try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, cliente.getNome());
             stmt.setString(2, cliente.getNascimento());
@@ -54,35 +50,33 @@ public class ClienteDAO {
             stmt.setString(5, cliente.getCpf());
             stmt.execute();
             return true;
-        }
-        catch(SQLException ex){
+        } catch (SQLException ex) {
             Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
-    
-    public boolean remover(Cliente cliente){
+
+    public boolean remover(Cliente cliente) {
         String sql = "DELETE FROM cliente WHERE cpf=?;";
-        try{
+        try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, cliente.getCpf());
             stmt.execute();
             return true;
-        }
-        catch(SQLException ex){
+        } catch (SQLException ex) {
             Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
-    
-    public List<Cliente> listar(){
+
+    public List<Cliente> listar() {
         String sql = "SELECT * FROM cliente;";
         List<Cliente> retorno = new ArrayList<>();
-        try{
+        try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             ResultSet resultado = stmt.executeQuery();
-            
-            while(resultado.next()){
+
+            while (resultado.next()) {
                 Cliente cliente = new Cliente();
                 cliente.setCpf(resultado.getString("cpf"));
                 cliente.setNome(resultado.getString("nome"));
@@ -91,30 +85,28 @@ public class ClienteDAO {
                 cliente.setUf(resultado.getString("uf"));
                 retorno.add(cliente);
             }
-        }
-        catch(SQLException ex){
+        } catch (SQLException ex) {
             Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return retorno;
     }
-    
-    public Cliente buscar(Cliente cliente){
+
+    public Cliente buscar(Cliente cliente) {
         String sql = "SELECT * FROM cliente WHERE cpf=?;";
         Cliente retorno = new Cliente();
-        try{
+        try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, cliente.getCpf());
             ResultSet resultado = stmt.executeQuery();
-            if (resultado.next()){
+            if (resultado.next()) {
                 cliente.setNome(resultado.getString("nome"));
                 cliente.setNascimento(resultado.getString("nascimento"));
                 cliente.setCidade(resultado.getString("cidade"));
                 cliente.setUf(resultado.getString("uf"));
-                
+
                 retorno = cliente;
             }
-        }
-        catch(SQLException ex){
+        } catch (SQLException ex) {
             Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return retorno;
