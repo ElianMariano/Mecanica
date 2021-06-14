@@ -9,11 +9,11 @@ public class ModeloVeiculo implements Serializable {
     private String nome;
     private String descricao;
 
-    public int getcdModeloVeiculo() {
+    public int getCdModeloVeiculo() {
         return cdModeloVeiculo;
     }
 
-    public void setcdModeloVeiculo(int cdModeloVeiculo) {
+    public void setCdModeloVeiculo(int cdModeloVeiculo) {
         this.cdModeloVeiculo = cdModeloVeiculo;
     }
 
