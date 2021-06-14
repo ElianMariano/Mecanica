@@ -10,25 +10,21 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import mecanica.model.domain.Veiculo;
 
-/**
- *
- * @author jones
- */
-
 public class VeiculoDAO {
+
     private Connection connection;
-    
-    public Connection getConnection(){
+
+    public Connection getConnection() {
         return connection;
     }
-    
-    public void setConnection(Connection connection){
+
+    public void setConnection(Connection connection) {
         this.connection = connection;
     }
-    
-    public boolean inserir(Veiculo veiculo){
+
+    public boolean inserir(Veiculo veiculo) {
         String sql = "INSERT INTO veiculo (placa, nome, marca, cod_modelo, cod_cliente) VALUES (?,?,?,?,?);";
-        try{
+        try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, veiculo.getPlaca());
             stmt.setString(2, veiculo.getNome());
@@ -37,16 +33,15 @@ public class VeiculoDAO {
             stmt.setString(5, veiculo.getCdCliente());
             stmt.execute();
             return true;
-        }
-        catch(SQLException ex){
+        } catch (SQLException ex) {
             Logger.getLogger(VeiculoDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
-    
-    public boolean alterar(Veiculo veiculo){
+
+    public boolean alterar(Veiculo veiculo) {
         String sql = "UPDATE veiculo SET nome=?, marca=?, cod_modelo=?, cod_cliente=? WHERE placa=?;";
-        try{
+        try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, veiculo.getPlaca());
             stmt.setString(2, veiculo.getNome());
@@ -55,35 +50,33 @@ public class VeiculoDAO {
             stmt.setString(5, veiculo.getCdCliente());
             stmt.execute();
             return true;
-        }
-        catch(SQLException ex){
+        } catch (SQLException ex) {
             Logger.getLogger(VeiculoDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
-    
-    public boolean remover(Veiculo veiculo){
+
+    public boolean remover(Veiculo veiculo) {
         String sql = "DELETE FROM veiculo WHERE placa=?;";
-        try{
+        try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, veiculo.getPlaca());
             stmt.execute();
             return true;
-        }
-        catch(SQLException ex){
+        } catch (SQLException ex) {
             Logger.getLogger(VeiculoDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
-    
-    public List<Veiculo> listar(){
+
+    public List<Veiculo> listar() {
         String sql = "SELECT * FROM veiculo;";
         List<Veiculo> retorno = new ArrayList<>();
-        try{
+        try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             ResultSet resultado = stmt.executeQuery();
-            
-            while(resultado.next()){
+
+            while (resultado.next()) {
                 Veiculo veiculo = new Veiculo();
                 veiculo.setPlaca(resultado.getString("placa"));
                 veiculo.setNome(resultado.getString("nome"));
@@ -92,30 +85,28 @@ public class VeiculoDAO {
                 veiculo.setCdCliente(resultado.getString("cod_cliente"));
                 retorno.add(veiculo);
             }
-        }
-        catch(SQLException ex){
+        } catch (SQLException ex) {
             Logger.getLogger(VeiculoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return retorno;
     }
-    
-    public Veiculo buscar(Veiculo veiculo){
+
+    public Veiculo buscar(Veiculo veiculo) {
         String sql = "SELECT * FROM veiculo WHERE placa=?;";
         Veiculo retorno = new Veiculo();
-        try{
+        try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, veiculo.getPlaca());
             ResultSet resultado = stmt.executeQuery();
-            if (resultado.next()){
+            if (resultado.next()) {
                 veiculo.setNome(resultado.getString("nome"));
                 veiculo.setMarca(resultado.getString("marca"));
                 veiculo.setCdModelo(resultado.getInt("cod_modelo"));
                 veiculo.setCdCliente(resultado.getString("cod_cliente"));
-                
+
                 retorno = veiculo;
             }
-        }
-        catch(SQLException ex){
+        } catch (SQLException ex) {
             Logger.getLogger(VeiculoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return retorno;
