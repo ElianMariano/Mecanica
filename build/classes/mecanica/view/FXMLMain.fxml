@@ -1,8 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16">
-    
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mecanica.controller.FXMLMainController">
+   <children>
+      <MenuBar layoutY="1.0" prefHeight="27.0" prefWidth="662.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Cadastros">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#handleCadastrosClientes" text="Cliente" />
+                  <MenuItem mnemonicParsing="false" text="Serviço" />
+                  <MenuItem mnemonicParsing="false" text="Modelos de Veículos" />
+                  <MenuItem mnemonicParsing="false" text="Veículos" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Processos">
+            <items>
+                  <MenuItem mnemonicParsing="false" text="Menutenções" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Gráficos">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Quantidade De Manutenções" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Relatórios">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Manutenções" />
+               </items>
+            </Menu>
+        </menus>
+      </MenuBar>
+      <AnchorPane fx:id="anchorPane" layoutY="28.0" prefHeight="410.0" prefWidth="662.0" />
+   </children>
 </AnchorPane>

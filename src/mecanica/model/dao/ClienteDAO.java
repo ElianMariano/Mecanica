@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,7 +29,7 @@ public class ClienteDAO {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, cliente.getCpf());
             stmt.setString(2, cliente.getNome());
-            stmt.setString(3, cliente.getNascimento());
+            stmt.setDate(3, Date.valueOf(cliente.getNascimento()));
             stmt.setString(4, cliente.getCidade());
             stmt.setString(5, cliente.getUf());
             stmt.execute();
@@ -44,7 +45,7 @@ public class ClienteDAO {
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, cliente.getNome());
-            stmt.setString(2, cliente.getNascimento());
+            stmt.setDate(2, Date.valueOf(cliente.getNascimento()));
             stmt.setString(3, cliente.getCidade());
             stmt.setString(4, cliente.getUf());
             stmt.setString(5, cliente.getCpf());
@@ -80,7 +81,7 @@ public class ClienteDAO {
                 Cliente cliente = new Cliente();
                 cliente.setCpf(resultado.getString("cpf"));
                 cliente.setNome(resultado.getString("nome"));
-                cliente.setNascimento(resultado.getString("nascimento"));
+                cliente.setNascimento(resultado.getDate("nascimento").toString());
                 cliente.setCidade(resultado.getString("cidade"));
                 cliente.setUf(resultado.getString("uf"));
                 retorno.add(cliente);
@@ -100,7 +101,7 @@ public class ClienteDAO {
             ResultSet resultado = stmt.executeQuery();
             if (resultado.next()) {
                 cliente.setNome(resultado.getString("nome"));
-                cliente.setNascimento(resultado.getString("nascimento"));
+                cliente.setNascimento(resultado.getDate("nascimento").toString());
                 cliente.setCidade(resultado.getString("cidade"));
                 cliente.setUf(resultado.getString("uf"));
 
