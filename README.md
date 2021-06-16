@@ -11,7 +11,7 @@ O projeto utiliza a arquitetura MVC e o modelo DAO para o acesso ao banco de dad
 
 Para uma melhor visualização da estrutura do projeto, considere a utilização do *NetBeans*.
 
-## Arquitetura do Projeto
+## Autenticação do Banco de Dados
 Para evitar a exposição de dados, o sistema utiliza variáveis do ambiente para acessar o banco de dados. Portanto, defina uma variável *DB_USER* com o nome do usuário e uma variável *DB_PASSWORD* com a senha.
 
 ## Dúvidas e Erros
