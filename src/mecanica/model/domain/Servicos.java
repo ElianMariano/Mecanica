@@ -9,7 +9,7 @@ public class Servicos implements Serializable {
     private String descricao;
     private Double preco;
 
-    public int cdServico() {
+    public int getcdServico() {
         return cdServico;
     }
 
@@ -33,7 +33,7 @@ public class Servicos implements Serializable {
         this.descricao = descricao;
     }
     
-    public Double Preco(){
+    public Double getPreco(){
         return this.preco;
     }
     
