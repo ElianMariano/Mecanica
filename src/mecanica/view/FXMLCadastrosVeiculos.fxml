@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="410.0" prefWidth="662.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mecanica.controller.FXMLCadastrosVeiculosController">
+   <children>
+      <TableView fx:id="tableViewVeiculo" prefHeight="366.0" prefWidth="662.0">
+         <columns>
+            <TableColumn fx:id="tableColumnPlaca" prefWidth="139.0" text="Placa" />
+            <TableColumn fx:id="tableColumnNome" prefWidth="122.0" text="Nome" />
+            <TableColumn fx:id="tableColumnMarca" prefWidth="125.0" text="Marca" />
+            <TableColumn fx:id="tableColumnCdModelo" prefWidth="128.0" text="Codigo Modelo" />
+            <TableColumn fx:id="tableColumnCdCliente" prefWidth="147.0" text="Codigo Cliente" />
+         </columns>
+      </TableView>
+      <Group layoutX="231.0" layoutY="374.0">
+         <children>
+            <Button fx:id="buttonInserir" mnemonicParsing="false" onAction="#handleButtonInserir" text="Inserir" />
+            <Button fx:id="buttonAlterar" layoutX="68.0" mnemonicParsing="false" onAction="#handleButtonAlterar" text="Alterar" />
+            <Button fx:id="buttonRemover" layoutX="137.0" mnemonicParsing="false" onAction="#handleButtonRemover" text="Remover" />
+         </children>
+      </Group>
+   </children>
+</AnchorPane>
