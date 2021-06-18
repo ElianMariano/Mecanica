@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Manutencao implements Serializable {
     private Integer cdManutencao;
     private String descricao;
-    private Integer cdVeiculo;
+    private String cdVeiculo;
 
     public Integer getCdManutencao() {
         return cdManutencao;
@@ -23,18 +23,18 @@ public class Manutencao implements Serializable {
         this.descricao = descricao;
     }
 
-    public Integer getCdVeiculo() {
+    public String getCdVeiculo() {
         return cdVeiculo;
     }
 
-    public void setCdVeiculo(Integer cdVeiculo) {
+    public void setCdVeiculo(String cdVeiculo) {
         this.cdVeiculo = cdVeiculo;
     }
     
     @Override
     public String toString() {
 
-        return String.format("(Código de Manutenção: %d, Descrição: %s, Placa do Veículo: %s)",
-                cdManutencao, cdVeiculo, descricao);
+        return String.format("(Código de Manutenção: %d, Descrição: %s, Código do Veículo: %s)",
+                cdManutencao, descricao, cdVeiculo);
     }
 }

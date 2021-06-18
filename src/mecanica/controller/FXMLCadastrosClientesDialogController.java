@@ -9,9 +9,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import mecanica.model.domain.Cliente;
-import java.util.regex.*;
+import java.util.regex.Pattern;
 
 public class FXMLCadastrosClientesDialogController implements Initializable {
+
     @FXML
     private TextField textFieldCpf;
     @FXML
@@ -26,35 +27,35 @@ public class FXMLCadastrosClientesDialogController implements Initializable {
     private Button buttonInserir;
     @FXML
     private Button buttonRemover;
-    
+
     private Stage dialogStage;
     private boolean buttonConfirmarClicked = false;
     private Cliente cliente;
-    
-    public Stage getDialogStage(){
+
+    public Stage getDialogStage() {
         return dialogStage;
     }
-    
-    public void setDialogStage(Stage stage){
+
+    public void setDialogStage(Stage stage) {
         dialogStage = stage;
     }
-    
-    public boolean isButtonConfirmarClicked(){
+
+    public boolean isButtonConfirmarClicked() {
         return buttonConfirmarClicked;
     }
-    
-    public void setButtonConfirmarClicked(boolean buttonConfirmar){
+
+    public void setButtonConfirmarClicked(boolean buttonConfirmar) {
         buttonConfirmarClicked = buttonConfirmar;
     }
-    
-    public Cliente getCliente(){
+
+    public Cliente getCliente() {
         return cliente;
     }
-    
-    public void setCliente(Cliente cliente){
+
+    public void setCliente(Cliente cliente) {
         this.cliente = cliente;
-        
-        if (cliente != null){
+
+        if (cliente != null) {
             textFieldCpf.setText(cliente.getCpf());
             textFieldNome.setText(cliente.getNome());
             textFieldNascimento.setText(cliente.getNascimento());
@@ -62,56 +63,55 @@ public class FXMLCadastrosClientesDialogController implements Initializable {
             textFieldUf.setText(cliente.getUf());
         }
     }
-    
+
     @FXML
-    public void handleButtonConfirmar(){
-        if (validarEntradaDeDados()){
+    public void handleButtonConfirmar() {
+        if (validarEntradaDeDados()) {
             cliente.setNome(textFieldNome.getText());
             cliente.setNascimento(textFieldNascimento.getText());
             cliente.setCpf(textFieldCpf.getText());
             cliente.setCidade(textFieldCidade.getText());
             cliente.setUf(textFieldUf.getText());
-            
+
             buttonConfirmarClicked = true;
             dialogStage.close();
         }
     }
-    
+
     @FXML
-    public void handleButtonCancelar(){
+    public void handleButtonCancelar() {
         dialogStage.close();
     }
-    
+
     // Valida a entrada de dados
-    public boolean validarEntradaDeDados(){
+    public boolean validarEntradaDeDados() {
         String errorMessage = "";
-        
-        if (textFieldNome.getText() == null || textFieldNome.getText().length() == 0){
+
+        if (textFieldNome.getText() == null || textFieldNome.getText().length() == 0) {
             errorMessage += "Nome inválido\n";
         }
-        
-        if (textFieldNascimento.getText() == null || textFieldNascimento.getText().length() == 0 ||
-                !Pattern.matches("((\\d){4}\\-(\\d){2}\\-(\\d){2})", textFieldNascimento.getText())){
+
+        if (textFieldNascimento.getText() == null || textFieldNascimento.getText().length() == 0
+                || !Pattern.matches("((\\d){4}\\-(\\d){2}\\-(\\d){2})", textFieldNascimento.getText())) {
             errorMessage += "Data de Nascimento inválida\n";
         }
-        
-        if (textFieldCpf.getText() == null || textFieldCpf.getText().length() == 0 ||
-                !Pattern.matches("((\\d){3}\\.(\\d){3}\\.(\\d){3}\\-(\\d){2})", textFieldCpf.getText())){
+
+        if (textFieldCpf.getText() == null || textFieldCpf.getText().length() == 0
+                || !Pattern.matches("((\\d){3}\\.(\\d){3}\\.(\\d){3}\\-(\\d){2})", textFieldCpf.getText())) {
             errorMessage += "CPF inválido\n";
         }
-        
-        if (textFieldCidade.getText() == null || textFieldCidade.getText().length() == 0){
+
+        if (textFieldCidade.getText() == null || textFieldCidade.getText().length() == 0) {
             errorMessage += "Campo de cidade inválido\n";
         }
-        
-        if (textFieldUf.getText() == null || textFieldUf.getText().length() == 0 || textFieldUf.getText().length() != 2){
+
+        if (textFieldUf.getText() == null || textFieldUf.getText().length() == 0 || textFieldUf.getText().length() != 2) {
             errorMessage += "Campo UF inválido\n";
         }
-        
-        if (errorMessage.equals("")){
+
+        if (errorMessage.equals("")) {
             return true;
-        }
-        else {
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erro no Cadastro");
             alert.setHeaderText("Campos Inválidos, corrija ...");
@@ -120,9 +120,9 @@ public class FXMLCadastrosClientesDialogController implements Initializable {
             return false;
         }
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
     }
 }

@@ -28,7 +28,7 @@ public class ManutencaoDAO {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, manutencao.getCdManutencao());
             stmt.setString(2, manutencao.getDescricao());
-            stmt.setInt(3, manutencao.getCdVeiculo());
+            stmt.setString(3, manutencao.getCdVeiculo());
             stmt.execute();
             return true;
         } catch (SQLException ex) {
@@ -43,7 +43,7 @@ public class ManutencaoDAO {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, manutencao.getCdManutencao());
             stmt.setString(2, manutencao.getDescricao());
-            stmt.setInt(3, manutencao.getCdVeiculo());
+            stmt.setString(3, manutencao.getCdVeiculo());
             stmt.execute();
             return true;
         } catch (SQLException ex) {
@@ -76,7 +76,7 @@ public class ManutencaoDAO {
                 Manutencao manutencao = new Manutencao();
                 manutencao.setCdManutencao(resultado.getInt("cod_manutencao"));
                 manutencao.setDescricao(resultado.getString("descricao"));
-                manutencao.setCdVeiculo(resultado.getInt("cod_veiculo"));
+                manutencao.setCdVeiculo(resultado.getString("cod_veiculo"));
                 retorno.add(manutencao);
             }
         } catch (SQLException ex) {
@@ -94,7 +94,7 @@ public class ManutencaoDAO {
             ResultSet resultado = stmt.executeQuery();
             if (resultado.next()) {
                 manutencao.setDescricao(resultado.getString("descricao"));
-                manutencao.setCdVeiculo(resultado.getInt("cod_veiculo"));
+                manutencao.setCdVeiculo(resultado.getString("cod_veiculo"));
 
                 retorno = manutencao;
             }
