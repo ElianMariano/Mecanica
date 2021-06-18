@@ -2,32 +2,35 @@ package mecanica.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import mecanica.model.domain.ModeloVeiculo;
+import mecanica.model.domain.Manutencao;
 
-public class FXMLCadastrosModeloVeiculosDialogController implements Initializable {
+public class FXMLCadastrosManutencoesDialogController implements Initializable {
 
     @FXML
-    private TextField textFieldCdModeloVeiculo;
-    @FXML
-    private TextField textFieldMoto;
-    @FXML
-    private TextField textFieldNome;
+    private TextField textFieldCdManutencao;
+
     @FXML
     private TextField textFieldDescricao;
+
+    @FXML
+    private TextField textFieldCdVeiculo;
+
     @FXML
     private Button buttonInserir;
+
     @FXML
     private Button buttonRemover;
 
     private Stage dialogStage;
     private boolean buttonConfirmarClicked = false;
-    private ModeloVeiculo modeloVeiculo;
+    private Manutencao manutencao;
 
     public Stage getDialogStage() {
         return dialogStage;
@@ -45,29 +48,26 @@ public class FXMLCadastrosModeloVeiculosDialogController implements Initializabl
         buttonConfirmarClicked = buttonConfirmar;
     }
 
-    public ModeloVeiculo getModeloVeiculo() {
-        return modeloVeiculo;
+    public Manutencao getManutencao() {
+        return manutencao;
     }
 
-    public void setModeloVeiculo(ModeloVeiculo modeloVeiculo) {
-        this.modeloVeiculo = modeloVeiculo;
+    public void setManutencao(Manutencao manutencao) {
+        this.manutencao = manutencao;
 
-        if (modeloVeiculo != null) {
-            textFieldCdModeloVeiculo.setText(Integer.toString(modeloVeiculo.getCdModeloVeiculo()));
-            textFieldMoto.setText(Boolean.toString(modeloVeiculo.getMoto()));
-            textFieldNome.setText(modeloVeiculo.getNome());
-            textFieldDescricao.setText(modeloVeiculo.getDescricao());
-
+        if (manutencao != null) {
+            textFieldCdManutencao.setText(Integer.toString(manutencao.getCdManutencao()));
+            textFieldDescricao.setText(manutencao.getDescricao());
+            textFieldCdVeiculo.setText(manutencao.getCdVeiculo());
         }
     }
 
     @FXML
     public void handleButtonConfirmar() {
         if (validarEntradaDeDados()) {
-            modeloVeiculo.setNome(textFieldNome.getText());
-            modeloVeiculo.setMoto(Boolean.getBoolean(textFieldMoto.getText()));
-            modeloVeiculo.setDescricao(textFieldDescricao.getText());
-            modeloVeiculo.setCdModeloVeiculo(Integer.parseInt(textFieldCdModeloVeiculo.getText()));
+            manutencao.setCdManutencao(Integer.parseInt(textFieldCdManutencao.getText()));
+            manutencao.setDescricao(textFieldDescricao.getText());
+            manutencao.setCdVeiculo(textFieldCdVeiculo.getText());
 
             buttonConfirmarClicked = true;
             dialogStage.close();
@@ -83,20 +83,16 @@ public class FXMLCadastrosModeloVeiculosDialogController implements Initializabl
     public boolean validarEntradaDeDados() {
         String errorMessage = "";
 
-        if (textFieldNome.getText() == null || textFieldNome.getText().length() == 0) {
-            errorMessage += "Nome inválido\n";
-        }
-
-        if (textFieldMoto.getText() == null || textFieldMoto.getText().length() == 0) {
-            errorMessage += "Moto inválida\n";
+        if (textFieldCdManutencao.getText() == null || textFieldCdManutencao.getText().length() == 0 || !Pattern.matches("[0-9]+", textFieldCdManutencao.getText())) {
+            errorMessage += "Código de Manutenção inválido\n";
         }
 
         if (textFieldDescricao.getText() == null || textFieldDescricao.getText().length() == 0) {
-            errorMessage += "Descrição inválido\n";
+            errorMessage += "Descrição inválida\n";
         }
 
-        if (textFieldCdModeloVeiculo.getText() == null || textFieldCdModeloVeiculo.getText().length() == 0) {
-            errorMessage += "Codigo de Modelo do veiculo inválido\n";
+        if (textFieldCdVeiculo.getText() == null || textFieldCdVeiculo.getText().length() == 0 || textFieldCdVeiculo.getText().length() > 7) {
+            errorMessage += "Código de Veículo inválido\n";
         }
 
         if (errorMessage.equals("")) {
@@ -115,5 +111,4 @@ public class FXMLCadastrosModeloVeiculosDialogController implements Initializabl
     public void initialize(URL url, ResourceBundle rb) {
 
     }
-
 }

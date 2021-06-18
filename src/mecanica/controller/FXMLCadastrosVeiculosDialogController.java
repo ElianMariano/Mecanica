@@ -9,11 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import mecanica.model.domain.Veiculo;
-import java.util.regex.*;
-
-/**
- * @author jones
- */
+import java.util.regex.Pattern;
 
 public class FXMLCadastrosVeiculosDialogController implements Initializable {
     @FXML

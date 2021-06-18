@@ -8,20 +8,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 
-/**
- * @author jones
- */
-public class FXMLMainControllerVeiculos implements Initializable{
+public class FXMLMainControllerVeiculos implements Initializable {
+
     @FXML
     private AnchorPane anchorPane;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+
     }
-    
+
     @FXML
-    public void handleCadastrosVeiculos() throws IOException{
+    public void handleCadastrosVeiculos() throws IOException {
         String url = "/mecanica/view/FXMLCadastrosVeiculos.fxml";
         AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource(url));
         anchorPane.getChildren().setAll(a);

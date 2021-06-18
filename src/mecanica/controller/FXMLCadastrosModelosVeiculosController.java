@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package mecanica.controller;
 
 import java.io.IOException;
@@ -27,14 +22,8 @@ import mecanica.model.dao.ModeloVeiculoDAO;
 import mecanica.model.database.PostgreSQL;
 import mecanica.model.domain.ModeloVeiculo;
 
-
-/**
- * FXML Controller class
- *
- * @author Andre
- */
 public class FXMLCadastrosModelosVeiculosController implements Initializable {
-    
+
     @FXML
     private TableColumn<ModeloVeiculo, Integer> tableColumnCdModelo;
     @FXML
@@ -51,10 +40,10 @@ public class FXMLCadastrosModelosVeiculosController implements Initializable {
     private Button buttonAlterar;
     @FXML
     private Button buttonRemover;
-    
+
     private List<ModeloVeiculo> listModeloVeiculos;
     private ObservableList<ModeloVeiculo> observableListModeloVeiculos;
-    
+
     // Manipulação de banco de dados
     private final PostgreSQL postgresql = new PostgreSQL();
     private final Connection connection = postgresql.conectar();
@@ -64,95 +53,93 @@ public class FXMLCadastrosModelosVeiculosController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         ModeloVeiculoDao.setConnection(connection);
         carregarTableViewModeloVeiculo();
-        
+
         // Listener acionado quando alterações ocorrem no tableview
 //        tableViewModeloVeiculo.getSelectionModel().selectedItemProperty().addListener(
 //        (observable, oldValue, newValue) -> selecionarTableViewModeloVeiculos(newValue));
     }
-    
-    public void carregarTableViewModeloVeiculo(){
+
+    public void carregarTableViewModeloVeiculo() {
         tableColumnCdModelo.setCellValueFactory(new PropertyValueFactory<>("cod_modelo"));
         tableColumnMoto.setCellValueFactory(new PropertyValueFactory<>("moto"));
         tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         tableColumnDescricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
-                
+
         listModeloVeiculos = ModeloVeiculoDao.listar();
-        
+
         observableListModeloVeiculos = FXCollections.observableArrayList(listModeloVeiculos);
         tableViewModeloVeiculo.setItems(observableListModeloVeiculos);
     }
-    
-    public boolean showCadastrosModeloVeiculosDialog(ModeloVeiculo modeloVeiculo) throws IOException{
+
+    public boolean showCadastrosModeloVeiculosDialog(ModeloVeiculo modeloVeiculo) throws IOException {
         // Carrega o fxml ModeloVeiculosDialog
         FXMLLoader loader = new FXMLLoader();
         String url = "/mecanica/view/FXMLCadastrosModeloVeiculosDialog.fxml";
         loader.setLocation(FXMLCadastrosModeloVeiculosDialogController.class.getResource(url));
         AnchorPane page = (AnchorPane) loader.load();
-        
+
         // Cria uma cena com ModeloVeiculosDialog
         Stage dialogStage = new Stage();
         dialogStage.setTitle("Cadastros dos modelos dos Veiculos");
         Scene scene = new Scene(page);
         dialogStage.setScene(scene);
-        
+
         // Define o dialogStage e o modelo do veiculo
         FXMLCadastrosModeloVeiculosDialogController controller = loader.getController();
         controller.setDialogStage(dialogStage);
         controller.setModeloVeiculo(modeloVeiculo);
-        
+
         // Mostra o VeiculosDialog e espera
         dialogStage.showAndWait();
-        
+
         // Retorna true se o botao confirmar for clicado
         return controller.isButtonConfirmarClicked();
     }
-    
+
     @FXML
-    public void handleButtonInserir() throws IOException{
+    public void handleButtonInserir() throws IOException {
         ModeloVeiculo modeloVeiculo = new ModeloVeiculo();
-        
+
         // Obtem verdadeiro se o veiculo for inserido
         boolean buttonConfirmarClicked = showCadastrosModeloVeiculosDialog(modeloVeiculo);
-        if (buttonConfirmarClicked){
+        if (buttonConfirmarClicked) {
             // Insere o modelo do veiculo no banco de dados
             ModeloVeiculoDao.inserir(modeloVeiculo);
             // Recarrega os dados do modelo do veiculo
             carregarTableViewModeloVeiculo();
         }
     }
-    
+
     @FXML
-    public void handleButtonAlterar() throws IOException{
+    public void handleButtonAlterar() throws IOException {
         ModeloVeiculo modeloVeiculo = tableViewModeloVeiculo.getSelectionModel().getSelectedItem();
-        
-        if (modeloVeiculo != null){
+
+        if (modeloVeiculo != null) {
             boolean buttonConfirmarClicked = showCadastrosModeloVeiculosDialog(modeloVeiculo);
-            
-            if (buttonConfirmarClicked){
+
+            if (buttonConfirmarClicked) {
                 ModeloVeiculoDao.alterar(modeloVeiculo);
                 carregarTableViewModeloVeiculo();
             }
-        }
-        else{
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Por favor, selecione um modelo ...");
             alert.show();
         }
     }
-    
+
     @FXML
-    public void handleButtonRemover() throws IOException{
+    public void handleButtonRemover() throws IOException {
         ModeloVeiculo modeloVeiculo = tableViewModeloVeiculo.getSelectionModel().getSelectedItem();
-        
-        if (modeloVeiculo != null){
+
+        if (modeloVeiculo != null) {
             ModeloVeiculoDao.remover(modeloVeiculo);
             carregarTableViewModeloVeiculo();
-        }
-        else{
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Por favor, selecione um modelo ...");
             alert.show();
         }
     }
-    
+
 }
