@@ -24,14 +24,14 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label alignment="CENTER" text="Código Modelo" textAlignment="CENTER" GridPane.columnIndex="1" />
-            <Label alignment="CENTER" text="Moto" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label alignment="CENTER" text="Nome" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label alignment="CENTER" text="Descrição" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="textFieldCdModelo" prefHeight="24.0" prefWidth="123.0" GridPane.columnIndex="2" />
-            <TextField fx:id="textFieldMoto" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <TextField fx:id="textFieldNome" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <TextField fx:id="textFieldDescricao" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <Label alignment="CENTER" text="Código Serviço" textAlignment="CENTER" GridPane.columnIndex="1" />
+            <Label alignment="CENTER" text="Nome" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label alignment="CENTER" text="Descrição" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label alignment="CENTER" text="Preço" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="textFieldcdServico" prefHeight="24.0" prefWidth="123.0" GridPane.columnIndex="2" />
+            <TextField fx:id="textFieldNome" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <TextField fx:id="textFieldDescricao" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <TextField fx:id="textFieldPreco" GridPane.columnIndex="2" GridPane.rowIndex="3" />
          </children>
       </GridPane>
       <Group layoutX="195.0" layoutY="208.0">
