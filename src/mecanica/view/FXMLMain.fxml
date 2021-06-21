@@ -5,31 +5,31 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mecanica.controller.FXMLMainController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mecanica.controller.FXMLMainController">
    <children>
       <MenuBar layoutY="1.0" prefHeight="27.0" prefWidth="662.0">
         <menus>
-          <Menu mnemonicParsing="false" text="Cadastros">
+          <Menu mnemonicParsing="false" styleClass="menu-option" text="Cadastros">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#handleCadastrosClientes" text="Cliente" />
-                  <MenuItem mnemonicParsing="false" text="Serviço" />
-                  <MenuItem mnemonicParsing="false" text="Modelos de Veículos" />
-                  <MenuItem mnemonicParsing="false" text="Veículos" />
+              <MenuItem mnemonicParsing="false" onAction="#handleCadastrosClientes" styleClass="item" text="Cliente" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleCadastrosServico" styleClass="item" text="Serviço" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleCadastrosModelosVeiculo" styleClass="item" text="Modelos de Veículos" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleCadastrosVeiculo" styleClass="item" text="Veículos" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Processos">
+          <Menu mnemonicParsing="false" styleClass="menu-option" text="Processos">
             <items>
-                  <MenuItem mnemonicParsing="false" text="Menutenções" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleProcessosManutencoes" styleClass="item" text="Menutenções" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Gráficos">
+          <Menu mnemonicParsing="false" styleClass="menu-option" text="Gráficos">
             <items>
-              <MenuItem mnemonicParsing="false" text="Quantidade De Manutenções" />
+              <MenuItem mnemonicParsing="false" styleClass="item" text="Quantidade De Manutenções" />
             </items>
           </Menu>
-            <Menu mnemonicParsing="false" text="Relatórios">
+            <Menu mnemonicParsing="false" styleClass="menu-option" text="Relatórios">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Manutenções" />
+                  <MenuItem mnemonicParsing="false" styleClass="item" text="Manutenções" />
                </items>
             </Menu>
         </menus>

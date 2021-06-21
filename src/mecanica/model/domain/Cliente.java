@@ -4,20 +4,11 @@ import java.io.Serializable;
 
 public class Cliente implements Serializable {
 
-    private int cdCliente;
     private String cpf;
     private String nome;
     private String nascimento;
     private String cidade;
     private String uf;
-
-    public int getcdCliente() {
-        return cdCliente;
-    }
-
-    public void setcdCliente(int cdCliente) {
-        this.cdCliente = cdCliente;
-    }
 
     public String getCpf() {
         return cpf;
@@ -61,7 +52,7 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("(Id: %d, CPF: %s, Nome: %s, Nascimento: %s, Cidade: %s, UF: %s)",
-                cdCliente, cpf, nome, nascimento, cidade, uf);
+        return String.format("(CPF: %s, Nome: %s, Nascimento: %s, Cidade: %s, UF: %s)",
+                cpf, nome, nascimento, cidade, uf);
     }
 }

@@ -55,12 +55,15 @@ public class FXMLCadastrosClientesDialogController implements Initializable {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
 
-        if (cliente != null) {
+        if (cliente != null && cliente.getCpf() != null) {
             textFieldCpf.setText(cliente.getCpf());
             textFieldNome.setText(cliente.getNome());
             textFieldNascimento.setText(cliente.getNascimento());
             textFieldCidade.setText(cliente.getCidade());
             textFieldUf.setText(cliente.getUf());
+            
+            if (!cliente.getCpf().isEmpty())
+                textFieldCpf.setEditable(false);
         }
     }
 
@@ -87,11 +90,14 @@ public class FXMLCadastrosClientesDialogController implements Initializable {
     public boolean validarEntradaDeDados() {
         String errorMessage = "";
 
-        if (textFieldNome.getText() == null || textFieldNome.getText().length() == 0) {
+        if (textFieldNome.getText() == null ||
+                textFieldNome.getText().length() == 0 ||
+                textFieldNome.getText().length() >= 100) {
             errorMessage += "Nome inválido\n";
         }
 
-        if (textFieldNascimento.getText() == null || textFieldNascimento.getText().length() == 0
+        if (textFieldNascimento.getText() == null ||
+                textFieldNascimento.getText().length() == 0
                 || !Pattern.matches("((\\d){4}\\-(\\d){2}\\-(\\d){2})", textFieldNascimento.getText())) {
             errorMessage += "Data de Nascimento inválida\n";
         }
@@ -101,11 +107,14 @@ public class FXMLCadastrosClientesDialogController implements Initializable {
             errorMessage += "CPF inválido\n";
         }
 
-        if (textFieldCidade.getText() == null || textFieldCidade.getText().length() == 0) {
+        if (textFieldCidade.getText() == null ||
+                textFieldCidade.getText().length() == 0 ||
+                textFieldCidade.getText().length() >= 100) {
             errorMessage += "Campo de cidade inválido\n";
         }
 
-        if (textFieldUf.getText() == null || textFieldUf.getText().length() == 0 || textFieldUf.getText().length() != 2) {
+        if (textFieldUf.getText() == null || textFieldUf.getText().length() == 0 
+                || textFieldUf.getText().length() != 2) {
             errorMessage += "Campo UF inválido\n";
         }
 

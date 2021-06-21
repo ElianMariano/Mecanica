@@ -24,4 +24,32 @@ public class FXMLMainController implements Initializable {
         AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource(url));
         anchorPane.getChildren().setAll(a);
     }
+    
+    @FXML
+    public void handleCadastrosVeiculo() throws IOException {
+        String url = "/mecanica/view/FXMLCadastrosVeiculos.fxml";
+        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource(url));
+        anchorPane.getChildren().setAll(a);
+    }
+
+    @FXML
+    public void handleCadastrosServico() throws IOException {
+        String url = "/mecanica/view/FXMLCasdastrosServicos.fxml";
+        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource(url));
+        anchorPane.getChildren().setAll(a);
+    }
+
+    @FXML
+    public void handleCadastrosModelosVeiculo() throws IOException {
+        String url = "/mecanica/view/FXMLCadastrosModelosVeiculos.fxml";
+        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource(url));
+        anchorPane.getChildren().setAll(a);
+    }
+
+    @FXML
+    public void handleProcessosManutencoes() throws IOException {
+        String url = "/mecanica/view/FXMLCadastrosManutencoes.fxml";
+        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource(url));
+        anchorPane.getChildren().setAll(a);
+    }
 }
