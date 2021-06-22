@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import mecanica.model.domain.Manutencao;
+import mecanica.model.domain.Veiculo;
 
 public class ManutencaoDAO {
 
@@ -23,12 +24,12 @@ public class ManutencaoDAO {
     }
 
     public boolean inserir(Manutencao manutencao) {
-        String sql = "INSERT INTO manutencao (cod_manutencao, descricao, cod_veiculo) VALUES (?,?,?);";
+        String sql = "INSERT INTO manutencao (cod_manutencao, descricao, veiculo) VALUES (?,?,?);";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, manutencao.getCdManutencao());
             stmt.setString(2, manutencao.getDescricao());
-            stmt.setString(3, manutencao.getCdVeiculo());
+            stmt.setObject(3, manutencao.getVeiculo());
             stmt.execute();
             return true;
         } catch (SQLException ex) {
@@ -38,12 +39,12 @@ public class ManutencaoDAO {
     }
 
     public boolean alterar(Manutencao manutencao) {
-        String sql = "UPDATE manutencao SET descricao=?, cod_veiculo=? WHERE cod_manutencao=?;";
+        String sql = "UPDATE manutencao SET descricao=?, veiculo=? WHERE cod_manutencao=?;";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, manutencao.getCdManutencao());
             stmt.setString(2, manutencao.getDescricao());
-            stmt.setString(3, manutencao.getCdVeiculo());
+            stmt.setObject(3, manutencao.getVeiculo());
             stmt.execute();
             return true;
         } catch (SQLException ex) {
@@ -76,7 +77,7 @@ public class ManutencaoDAO {
                 Manutencao manutencao = new Manutencao();
                 manutencao.setCdManutencao(resultado.getInt("cod_manutencao"));
                 manutencao.setDescricao(resultado.getString("descricao"));
-                manutencao.setCdVeiculo(resultado.getString("cod_veiculo"));
+                manutencao.setVeiculo((Veiculo) resultado.getObject("veiculo"));
                 retorno.add(manutencao);
             }
         } catch (SQLException ex) {
@@ -94,7 +95,7 @@ public class ManutencaoDAO {
             ResultSet resultado = stmt.executeQuery();
             if (resultado.next()) {
                 manutencao.setDescricao(resultado.getString("descricao"));
-                manutencao.setCdVeiculo(resultado.getString("cod_veiculo"));
+                manutencao.setVeiculo((Veiculo) resultado.getObject("veiculo"));
 
                 retorno = manutencao;
             }

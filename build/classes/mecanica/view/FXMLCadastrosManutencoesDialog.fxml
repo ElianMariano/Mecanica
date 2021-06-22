@@ -9,13 +9,13 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="AnchorPane" prefHeight="247.0" prefWidth="353.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mecanica.controller.FXMLCadastrosVeiculosDialogController">
+<AnchorPane id="AnchorPane" prefHeight="247.0" prefWidth="393.0" stylesheets="@styles3.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mecanica.controller.FXMLCadastrosVeiculosDialogController">
    <children>
-      <GridPane layoutX="45.0" layoutY="14.0" prefHeight="180.0" prefWidth="266.0">
+      <GridPane layoutX="45.0" layoutY="14.0" prefHeight="180.0" prefWidth="303.0">
         <columnConstraints>
           <ColumnConstraints maxWidth="0.0" minWidth="0.0" prefWidth="0.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="122.0" minWidth="10.0" prefWidth="122.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="148.0" minWidth="10.0" prefWidth="137.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="177.60001220703126" minWidth="10.0" prefWidth="150.4" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="148.0" minWidth="10.0" prefWidth="115.6" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -31,7 +31,7 @@
             <TextField fx:id="textFieldCdVeiculo" GridPane.columnIndex="2" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <Group layoutX="195.0" layoutY="208.0">
+      <Group layoutX="230.0" layoutY="208.0">
          <children>
             <Button fx:id="buttonInserir" mnemonicParsing="false" onAction="#handleButtonConfirmar" text="Inserir" />
             <Button fx:id="buttonCancelar" layoutX="68.0" mnemonicParsing="false" onAction="#handleButtonCancelar" text="Cancelar" />

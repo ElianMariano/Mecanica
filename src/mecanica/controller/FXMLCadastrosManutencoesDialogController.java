@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import mecanica.model.domain.Manutencao;
+import mecanica.model.domain.Veiculo;
 
 public class FXMLCadastrosManutencoesDialogController implements Initializable {
 
@@ -58,7 +59,7 @@ public class FXMLCadastrosManutencoesDialogController implements Initializable {
         if (manutencao != null) {
             textFieldCdManutencao.setText(Integer.toString(manutencao.getCdManutencao()));
             textFieldDescricao.setText(manutencao.getDescricao());
-            textFieldCdVeiculo.setText(manutencao.getCdVeiculo());
+            textFieldCdVeiculo.setText(manutencao.getVeiculo(veiculo));
         }
     }
 
@@ -67,7 +68,7 @@ public class FXMLCadastrosManutencoesDialogController implements Initializable {
         if (validarEntradaDeDados()) {
             manutencao.setCdManutencao(Integer.parseInt(textFieldCdManutencao.getText()));
             manutencao.setDescricao(textFieldDescricao.getText());
-            manutencao.setCdVeiculo(textFieldCdVeiculo.getText());
+            manutencao.setVeiculo(textFieldCdVeiculo.getText(toString(veiculo)));
 
             buttonConfirmarClicked = true;
             dialogStage.close();
