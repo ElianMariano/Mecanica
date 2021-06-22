@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="AnchorPane" prefHeight="247.0" prefWidth="353.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mecanica.controller.FXMLCadastrosVeiculosDialogController">
+<AnchorPane id="AnchorPane" prefHeight="247.0" prefWidth="353.0" stylesheets="@styles3.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mecanica.controller.FXMLCadastrosVeiculosDialogController">
    <children>
       <GridPane layoutX="45.0" layoutY="14.0" prefHeight="180.0" prefWidth="266.0">
         <columnConstraints>
