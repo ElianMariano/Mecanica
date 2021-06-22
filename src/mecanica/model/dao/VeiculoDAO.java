@@ -23,14 +23,14 @@ public class VeiculoDAO {
     }
 
     public boolean inserir(Veiculo veiculo) {
-        String sql = "INSERT INTO veiculo (placa, nome, marca, cod_modelo, cod_cliente) VALUES (?,?,?,?,?);";
+        String sql = "INSERT INTO veiculo (placa, nome, marca, modelo, cliente) VALUES (?,?,?,?,?);";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, veiculo.getPlaca());
             stmt.setString(2, veiculo.getNome());
             stmt.setString(3, veiculo.getMarca());
-            stmt.setInt(4, veiculo.getCdModelo());
-            stmt.setString(5, veiculo.getCdCliente());
+            stmt.setString(4, veiculo.getModelo());
+            stmt.setString(5, veiculo.getCliente());
             stmt.execute();
             return true;
         } catch (SQLException ex) {
@@ -40,14 +40,14 @@ public class VeiculoDAO {
     }
 
     public boolean alterar(Veiculo veiculo) {
-        String sql = "UPDATE veiculo SET nome=?, marca=?, cod_modelo=?, cod_cliente=? WHERE placa=?;";
+        String sql = "UPDATE veiculo SET nome=?, marca=?, modelo=?, cliente=? WHERE placa=?;";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, veiculo.getPlaca());
             stmt.setString(2, veiculo.getNome());
             stmt.setString(3, veiculo.getMarca());
-            stmt.setInt(4, veiculo.getCdModelo());
-            stmt.setString(5, veiculo.getCdCliente());
+            stmt.setString(4, veiculo.getModelo());
+            stmt.setString(5, veiculo.getCliente());
             stmt.execute();
             return true;
         } catch (SQLException ex) {
@@ -81,9 +81,10 @@ public class VeiculoDAO {
                 veiculo.setPlaca(resultado.getString("placa"));
                 veiculo.setNome(resultado.getString("nome"));
                 veiculo.setMarca(resultado.getString("marca"));
-                veiculo.setCdModelo(resultado.getInt("cod_modelo"));
-                veiculo.setCdCliente(resultado.getString("cod_cliente"));
+                veiculo.setModelo(resultado.getString("modelo"));
+                veiculo.setCliente(resultado.getString("cliente"));
                 retorno.add(veiculo);
+                //Lembrar de mudar o nome e o tipo das variaveis no banco(modelo e cliente);
             }
         } catch (SQLException ex) {
             Logger.getLogger(VeiculoDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -101,8 +102,8 @@ public class VeiculoDAO {
             if (resultado.next()) {
                 veiculo.setNome(resultado.getString("nome"));
                 veiculo.setMarca(resultado.getString("marca"));
-                veiculo.setCdModelo(resultado.getInt("cod_modelo"));
-                veiculo.setCdCliente(resultado.getString("cod_cliente"));
+                veiculo.setModelo(resultado.getString("modelo"));
+                veiculo.setCliente(resultado.getString("cliente"));
 
                 retorno = veiculo;
             }

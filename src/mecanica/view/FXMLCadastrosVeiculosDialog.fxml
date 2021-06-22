@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="AnchorPane" prefHeight="247.0" prefWidth="353.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mecanica.controller.FXMLCadastrosVeiculosDialogController">
+<AnchorPane id="AnchorPane" prefHeight="247.0" prefWidth="353.0" stylesheets="@styles2.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mecanica.controller.FXMLCadastrosVeiculosDialogController">
    <children>
       <GridPane layoutX="45.0" layoutY="14.0" prefHeight="180.0" prefWidth="266.0">
         <columnConstraints>
@@ -28,13 +28,13 @@
             <Label alignment="CENTER" text="Placa" textAlignment="CENTER" GridPane.columnIndex="1" />
             <Label alignment="CENTER" text="Nome" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label alignment="CENTER" text="Marca" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label alignment="CENTER" text="Codigo Modelo" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label alignment="CENTER" text="Codigo Cliente" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label alignment="CENTER" text="Modelo" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label alignment="CENTER" text="Cliente" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField fx:id="textFieldPlaca" prefHeight="24.0" prefWidth="123.0" GridPane.columnIndex="2" />
             <TextField fx:id="textFieldNome" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <TextField fx:id="textFieldMarca" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <TextField fx:id="textFieldCodModelo" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <TextField fx:id="textFieldCodCliente" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <TextField fx:id="textFieldModelo" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <TextField fx:id="textFieldCliente" GridPane.columnIndex="2" GridPane.rowIndex="4" />
          </children>
       </GridPane>
       <Group layoutX="195.0" layoutY="208.0">

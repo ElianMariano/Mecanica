@@ -33,9 +33,9 @@ public class FXMLCadastrosVeiculosController implements Initializable {
     @FXML
     private TableColumn<Veiculo, String> tableColumnMarca;
     @FXML
-    private TableColumn<Veiculo, Integer> tableColumnCdModelo;
+    private TableColumn<Veiculo, String> tableColumnModelo;
     @FXML
-    private TableColumn<Veiculo, String> tableColumnCdCliente;
+    private TableColumn<Veiculo, String> tableColumnCliente;
     @FXML
     private Button buttonInserir;
     @FXML
@@ -65,8 +65,8 @@ public class FXMLCadastrosVeiculosController implements Initializable {
         tableColumnPlaca.setCellValueFactory(new PropertyValueFactory<>("placa"));
         tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         tableColumnMarca.setCellValueFactory(new PropertyValueFactory<>("marca"));
-        tableColumnCdModelo.setCellValueFactory(new PropertyValueFactory<>("cod_modelo"));
-        tableColumnCdCliente.setCellValueFactory(new PropertyValueFactory<>("cod_cliente"));
+        tableColumnModelo.setCellValueFactory(new PropertyValueFactory<>("modelo"));
+        tableColumnCliente.setCellValueFactory(new PropertyValueFactory<>("cliente"));
 
         listVeiculos = veiculoDao.listar();
 

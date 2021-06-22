@@ -19,9 +19,9 @@ public class FXMLCadastrosVeiculosDialogController implements Initializable {
     @FXML
     private TextField textFieldMarca;
     @FXML
-    private TextField textFieldCdModelo;
+    private TextField textFieldModelo;
     @FXML
-    private TextField textFieldCdCliente;
+    private TextField textFieldCliente;
     @FXML
     private Button buttonInserir;
     @FXML
@@ -58,8 +58,8 @@ public class FXMLCadastrosVeiculosDialogController implements Initializable {
             textFieldPlaca.setText(veiculo.getPlaca());
             textFieldNome.setText(veiculo.getNome());
             textFieldMarca.setText(veiculo.getMarca());
-            textFieldCdModelo.setText(Integer.toString(veiculo.getCdModelo()));
-            textFieldCdCliente.setText(veiculo.getCdCliente());
+            textFieldModelo.setText(veiculo.getModelo());
+            textFieldCliente.setText(veiculo.getCliente());
         }
     }
     
@@ -69,8 +69,8 @@ public class FXMLCadastrosVeiculosDialogController implements Initializable {
             veiculo.setNome(textFieldNome.getText());
             veiculo.setMarca(textFieldMarca.getText());
             veiculo.setPlaca(textFieldPlaca.getText());
-            veiculo.setCdModelo(Integer.parseInt(textFieldCdModelo.getText()));
-            veiculo.setCdCliente(textFieldCdCliente.getText());
+            veiculo.setModelo(textFieldModelo.getText());
+            veiculo.setCliente(textFieldCliente.getText());
             
             buttonConfirmarClicked = true;
             dialogStage.close();
@@ -98,12 +98,12 @@ public class FXMLCadastrosVeiculosDialogController implements Initializable {
             errorMessage += "Placa inválido\n";
         }
         
-        if (textFieldCdModelo.getText() == null || textFieldCdModelo.getText().length() == 0){
-            errorMessage += "Codigo de Modelo inválido\n";
+        if (textFieldModelo.getText() == null || textFieldModelo.getText().length() == 0){
+            errorMessage += "Modelo inválido\n";
         }
         
-        if (textFieldCdCliente.getText() == null || textFieldCdCliente.getText().length() == 0){
-            errorMessage += "Codigo de Cliente inválido\n";
+        if (textFieldCliente.getText() == null || textFieldCliente.getText().length() == 0){
+            errorMessage += "Cliente inválido\n";
         }
         
         if (errorMessage.equals("")){
