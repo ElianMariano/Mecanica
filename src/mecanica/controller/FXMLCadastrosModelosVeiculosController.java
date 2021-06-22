@@ -60,7 +60,7 @@ public class FXMLCadastrosModelosVeiculosController implements Initializable {
     }
 
     public void carregarTableViewModeloVeiculo() {
-        tableColumnCdModelo.setCellValueFactory(new PropertyValueFactory<>("cod_modelo"));
+        tableColumnCdModelo.setCellValueFactory(new PropertyValueFactory<>("cdModeloVeiculo"));
         tableColumnMoto.setCellValueFactory(new PropertyValueFactory<>("moto"));
         tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         tableColumnDescricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
