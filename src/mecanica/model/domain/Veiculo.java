@@ -7,8 +7,8 @@ public class Veiculo implements Serializable {
     private String placa;
     private String nome;
     private String marca;
-    private int cdmodelo;
-    private String cdcliente;
+    private String modelo;
+    private String cliente;
 
     public String getPlaca() {
         return placa;
@@ -34,25 +34,25 @@ public class Veiculo implements Serializable {
         this.marca = marca;
     }
     
-    public int getCdModelo(){
-        return cdmodelo;
+    public String getModelo(){
+        return modelo;
     }
     
-    public void setCdModelo(int cdmodelo){
-        this.cdmodelo = cdmodelo;
+    public void setModelo(String modelo){
+        this.modelo = modelo;
     }
     
-    public String getCdCliente(){
-        return cdcliente;
+    public String getCliente(){
+        return cliente;
     }
     
-    public void setCdCliente(String cdcliente){
-        this.cdcliente = cdcliente;
+    public void setCliente(String cliente){
+        this.cliente = cliente;
     }
 
     @Override
     public String toString() {
-        return String.format("(Placa: %s, Nome: %s, Marca: %s, Cod_Modelo: %d, Cod_Cliente: %s)",
-                placa, nome, marca, cdmodelo, cdcliente);
+        return String.format("(Placa: %s, Nome: %s, Marca: %s, Modelo: %s, Cliente: %s)",
+                placa, nome, marca, modelo, cliente);
     }
 }

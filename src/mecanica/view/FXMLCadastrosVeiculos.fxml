@@ -6,15 +6,15 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="410.0" prefWidth="662.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mecanica.controller.FXMLCadastrosVeiculosController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="410.0" prefWidth="662.0" stylesheets="@styles2.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mecanica.controller.FXMLCadastrosVeiculosController">
    <children>
-      <TableView fx:id="tableViewVeiculo" prefHeight="366.0" prefWidth="662.0">
+      <TableView fx:id="tableViewVeiculo" prefHeight="366.0" prefWidth="662.0" stylesheets="@styles.css">
          <columns>
             <TableColumn fx:id="tableColumnPlaca" prefWidth="139.0" text="Placa" />
             <TableColumn fx:id="tableColumnNome" prefWidth="122.0" text="Nome" />
             <TableColumn fx:id="tableColumnMarca" prefWidth="125.0" text="Marca" />
-            <TableColumn fx:id="tableColumnCdModelo" prefWidth="128.0" text="Codigo Modelo" />
-            <TableColumn fx:id="tableColumnCdCliente" prefWidth="147.0" text="Codigo Cliente" />
+            <TableColumn fx:id="tableColumnModelo" prefWidth="128.0" text="Modelo" />
+            <TableColumn fx:id="tableColumnCliente" prefWidth="147.0" text="Cliente" />
          </columns>
       </TableView>
       <Group layoutX="231.0" layoutY="374.0">
