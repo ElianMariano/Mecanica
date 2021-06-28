@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import mecanica.model.domain.Cliente;
+import mecanica.model.domain.ModeloVeiculo;
 import mecanica.model.domain.Veiculo;
 
 public class VeiculoDAO {
@@ -23,14 +25,14 @@ public class VeiculoDAO {
     }
 
     public boolean inserir(Veiculo veiculo) {
-        String sql = "INSERT INTO veiculo (placa, nome, marca, modelo, cliente) VALUES (?,?,?,?,?);";
+        String sql = "INSERT INTO veiculo (placa, nome, marca, cod_modelo, cod_cliente) VALUES (?,?,?,?,?);";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, veiculo.getPlaca());
             stmt.setString(2, veiculo.getNome());
             stmt.setString(3, veiculo.getMarca());
-            stmt.setString(4, veiculo.getModelo());
-            stmt.setString(5, veiculo.getCliente());
+            stmt.setInt(4, veiculo.getModelo().getCdModeloVeiculo());
+            stmt.setString(5, veiculo.getCliente().getCpf());
             stmt.execute();
             return true;
         } catch (SQLException ex) {
@@ -40,14 +42,14 @@ public class VeiculoDAO {
     }
 
     public boolean alterar(Veiculo veiculo) {
-        String sql = "UPDATE veiculo SET nome=?, marca=?, modelo=?, cliente=? WHERE placa=?;";
+        String sql = "UPDATE veiculo SET nome=?, marca=?, cod_modelo=?, cod_cliente=? WHERE placa=?;";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, veiculo.getPlaca());
             stmt.setString(2, veiculo.getNome());
             stmt.setString(3, veiculo.getMarca());
-            stmt.setString(4, veiculo.getModelo());
-            stmt.setString(5, veiculo.getCliente());
+            stmt.setInt(4, veiculo.getModelo().getCdModeloVeiculo());
+            stmt.setString(5, veiculo.getCliente().getCpf());
             stmt.execute();
             return true;
         } catch (SQLException ex) {
@@ -77,12 +79,34 @@ public class VeiculoDAO {
             ResultSet resultado = stmt.executeQuery();
 
             while (resultado.next()) {
+                // Instancia as classes
                 Veiculo veiculo = new Veiculo();
+                ModeloVeiculo modelo = new ModeloVeiculo();
+                Cliente cliente = new Cliente();
+                
+                // Obtem os dados do veiculo
                 veiculo.setPlaca(resultado.getString("placa"));
                 veiculo.setNome(resultado.getString("nome"));
                 veiculo.setMarca(resultado.getString("marca"));
-                veiculo.setModelo(resultado.getString("modelo"));
-                veiculo.setCliente(resultado.getString("cliente"));
+                
+                // Define os indices do modelo e cliente
+                modelo.setCdModeloVeiculo(resultado.getInt("cod_modelo"));
+                cliente.setCpf(resultado.getString("cod_cliente"));
+                
+                // Obtem os dados do ModeloVeiculo
+                ModeloVeiculoDAO modeloDao = new ModeloVeiculoDAO();
+                modeloDao.setConnection(connection);
+                modelo = modeloDao.buscar(modelo);
+                
+                // Obtem os dados do cliente
+                ClienteDAO clienteDao = new ClienteDAO();
+                clienteDao.setConnection(connection);
+                cliente = clienteDao.buscar(cliente);
+                
+                // Atribui o cliente e o modelo ao veiculo
+                veiculo.setModelo(modelo);
+                veiculo.setCliente(cliente);
+                
                 retorno.add(veiculo);
                 //Lembrar de mudar o nome e o tipo das variaveis no banco(modelo e cliente);
             }
@@ -95,6 +119,8 @@ public class VeiculoDAO {
     public Veiculo buscar(Veiculo veiculo) {
         String sql = "SELECT * FROM veiculo WHERE placa=?;";
         Veiculo retorno = new Veiculo();
+        ModeloVeiculo modelo = new ModeloVeiculo();
+        Cliente cliente = new Cliente();
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, veiculo.getPlaca());
@@ -102,8 +128,14 @@ public class VeiculoDAO {
             if (resultado.next()) {
                 veiculo.setNome(resultado.getString("nome"));
                 veiculo.setMarca(resultado.getString("marca"));
-                veiculo.setModelo(resultado.getString("modelo"));
-                veiculo.setCliente(resultado.getString("cliente"));
+                
+                // Obtem o modelo e cliente
+                modelo.setCdModeloVeiculo(resultado.getInt("cod_modelo"));
+                cliente.setCpf(resultado.getString("cod_cliente"));
+                
+                // Define o modelo e cliente no objeto veiculo
+                veiculo.setModelo(modelo);
+                veiculo.setCliente(cliente);
 
                 retorno = veiculo;
             }

@@ -7,8 +7,8 @@ public class Veiculo implements Serializable {
     private String placa;
     private String nome;
     private String marca;
-    private String modelo;
-    private String cliente;
+    private ModeloVeiculo modelo;
+    private Cliente cliente;
 
     public String getPlaca() {
         return placa;
@@ -34,25 +34,25 @@ public class Veiculo implements Serializable {
         this.marca = marca;
     }
     
-    public String getModelo(){
+    public ModeloVeiculo getModelo(){
         return modelo;
     }
     
-    public void setModelo(String modelo){
+    public void setModelo(ModeloVeiculo modelo){
         this.modelo = modelo;
     }
     
-    public String getCliente(){
+    public Cliente getCliente(){
         return cliente;
     }
     
-    public void setCliente(String cliente){
+    public void setCliente(Cliente cliente){
         this.cliente = cliente;
     }
 
     @Override
     public String toString() {
         return String.format("(Placa: %s, Nome: %s, Marca: %s, Modelo: %s, Cliente: %s)",
-                placa, nome, marca, modelo, cliente);
+                placa, nome, marca, modelo.getCdModeloVeiculo(), cliente.getCpf());
     }
 }

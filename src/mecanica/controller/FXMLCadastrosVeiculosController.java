@@ -16,6 +16,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import mecanica.model.dao.VeiculoDAO;
@@ -31,11 +32,19 @@ public class FXMLCadastrosVeiculosController implements Initializable {
     @FXML
     private TableColumn<Veiculo, String> tableColumnNome;
     @FXML
-    private TableColumn<Veiculo, String> tableColumnMarca;
+    private Label labelPlaca;
     @FXML
-    private TableColumn<Veiculo, String> tableColumnModelo;
+    private Label labelNome;
     @FXML
-    private TableColumn<Veiculo, String> tableColumnCliente;
+    private Label labelDono;
+    @FXML
+    private Label labelMarca;
+    @FXML
+    private Label labelMoto;
+    @FXML
+    private Label labelNomeVeiculo;
+    @FXML
+    private Label labelDescricao;    
     @FXML
     private Button buttonInserir;
     @FXML
@@ -64,9 +73,10 @@ public class FXMLCadastrosVeiculosController implements Initializable {
     public void carregarTableViewVeiculo() {
         tableColumnPlaca.setCellValueFactory(new PropertyValueFactory<>("placa"));
         tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        tableColumnMarca.setCellValueFactory(new PropertyValueFactory<>("marca"));
-        tableColumnModelo.setCellValueFactory(new PropertyValueFactory<>("modelo"));
-        tableColumnCliente.setCellValueFactory(new PropertyValueFactory<>("cliente"));
+//        tableColumnMarca.setCellValueFactory(new PropertyValueFactory<>("marca"));
+//        tableColumnModelo.setCellValueFactory(new PropertyValueFactory<>("modelo"));
+//        tableColumnCliente.setCellValueFactory(new PropertyValueFactory<>("cliente"));
+            // Informar estes dados
 
         listVeiculos = veiculoDao.listar();
 
