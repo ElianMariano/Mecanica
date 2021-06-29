@@ -61,7 +61,7 @@ public class FXMLCasdastrosServicosController implements Initializable {
 
     public void carregarTableViewServico() {
         tableColumncdServico.setCellValueFactory(new PropertyValueFactory<>("cod_servico"));
-        tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("Nome"));
+        tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         tableColumnDescricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
         tableColumnPreco.setCellValueFactory(new PropertyValueFactory<>("preco"));
 
