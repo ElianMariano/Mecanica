@@ -45,11 +45,11 @@ public class VeiculoDAO {
         String sql = "UPDATE veiculo SET nome=?, marca=?, cod_modelo=?, cod_cliente=? WHERE placa=?;";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setString(1, veiculo.getPlaca());
-            stmt.setString(2, veiculo.getNome());
-            stmt.setString(3, veiculo.getMarca());
-            stmt.setInt(4, veiculo.getModelo().getCdModeloVeiculo());
-            stmt.setString(5, veiculo.getCliente().getCpf());
+            stmt.setString(1, veiculo.getNome());
+            stmt.setString(2, veiculo.getMarca());
+            stmt.setInt(3, veiculo.getModelo().getCdModeloVeiculo());
+            stmt.setString(4, veiculo.getCliente().getCpf());
+            stmt.setString(5, veiculo.getPlaca());
             stmt.execute();
             return true;
         } catch (SQLException ex) {

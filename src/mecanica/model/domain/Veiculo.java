@@ -52,7 +52,6 @@ public class Veiculo implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("(Placa: %s, Nome: %s, Marca: %s, Modelo: %s, Cliente: %s)",
-                placa, nome, marca, modelo.getCdModeloVeiculo(), cliente.getCpf());
+        return this.nome;
     }
 }

@@ -19,8 +19,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import mecanica.model.dao.ClienteDAO;
+import mecanica.model.dao.ModeloVeiculoDAO;
 import mecanica.model.dao.VeiculoDAO;
 import mecanica.model.database.PostgreSQL;
+import mecanica.model.domain.Cliente;
+import mecanica.model.domain.ModeloVeiculo;
 import mecanica.model.domain.Veiculo;
 
 public class FXMLCadastrosVeiculosController implements Initializable {
@@ -66,17 +70,59 @@ public class FXMLCadastrosVeiculosController implements Initializable {
         carregarTableViewVeiculo();
 
         // Listener acionado quando alterações ocorrem no tableview
-//        tableViewVeiculo.getSelectionModel().selectedItemProperty().addListener(
-//        (observable, oldValue, newValue) -> selecionarTableViewVeiculos(newValue));
+        tableViewVeiculo.getSelectionModel().selectedItemProperty().addListener(
+        (observable, oldValue, newValue) -> selecionarTableViewVeiculos(newValue));
+    }
+    
+    public String quebrarLinha(String texto){
+        String[] palavras = texto.split(" ");
+        String resultado = "";
+        
+        for (int i = 0;i < palavras.length;i++){
+            resultado += String.format("%s ", palavras[i]);
+            
+            if (i % 4 == 0 && i != 0) resultado += "\n";
+        }
+        
+        return resultado;
+    }
+    
+    public void selecionarTableViewVeiculos(Veiculo veiculo){
+        if (veiculo != null){
+            // Obtem o cliente
+            ClienteDAO clienteDao = new ClienteDAO();
+            clienteDao.setConnection(connection);
+            Cliente cliente = clienteDao.buscar(veiculo.getCliente());
+            
+            // Obtem o ModeloVeiculo
+            ModeloVeiculoDAO modeloDao = new ModeloVeiculoDAO();
+            modeloDao.setConnection(connection);
+            ModeloVeiculo modelo = modeloDao.buscar(veiculo.getModelo());
+            
+            // Define os dados selecionados
+            labelPlaca.setText(veiculo.getPlaca());
+            labelNome.setText(veiculo.getNome());
+            labelDono.setText(cliente.getNome());
+            labelMarca.setText(veiculo.getMarca());
+            labelMoto.setText((modelo.getMoto()) ? "Sim" : "Não");
+            labelNomeVeiculo.setText(modelo.getNome());
+            labelDescricao.setText(quebrarLinha(String.format("Descrição: %s",
+                    modelo.getDescricao())));
+        }
+        else{
+            labelPlaca.setText("");
+            labelNome.setText("");
+            labelDono.setText("");
+            labelMarca.setText("");
+            labelMoto.setText("");
+            labelNomeVeiculo.setText("");
+            labelDescricao.setText("Descrição");
+        }
     }
 
     public void carregarTableViewVeiculo() {
         tableColumnPlaca.setCellValueFactory(new PropertyValueFactory<>("placa"));
         tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-//        tableColumnMarca.setCellValueFactory(new PropertyValueFactory<>("marca"));
-//        tableColumnModelo.setCellValueFactory(new PropertyValueFactory<>("modelo"));
-//        tableColumnCliente.setCellValueFactory(new PropertyValueFactory<>("cliente"));
-            // Informar estes dados
 
         listVeiculos = veiculoDao.listar();
 
@@ -131,6 +177,7 @@ public class FXMLCadastrosVeiculosController implements Initializable {
             boolean buttonConfirmarClicked = showCadastrosVeiculosDialog(veiculo);
 
             if (buttonConfirmarClicked) {
+                System.out.println("Confirmado");
                 veiculoDao.alterar(veiculo);
                 carregarTableViewVeiculo();
             }

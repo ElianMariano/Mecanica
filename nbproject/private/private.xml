@@ -3,9 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/elian/Área%20de%20Trabalho/Mecanica/src/mecanica/model/domain/Manutencao.java</file>
-            <file>file:/home/elian/Área%20de%20Trabalho/Mecanica/src/mecanica/controller/FXMLCadastrosManutencoesDialogController.java</file>
-            <file>file:/home/elian/Área%20de%20Trabalho/Mecanica/src/mecanica/model/dao/ManutencaoDAO.java</file>
+            <file>file:/home/elian/Área%20de%20Trabalho/Mecanica/src/mecanica/controller/FXMLCadastrosVeiculosDialogController.java</file>
+            <file>file:/home/elian/Área%20de%20Trabalho/Mecanica/src/mecanica/controller/FXMLCadastrosVeiculosController.java</file>
         </group>
     </open-files>
 </project-private>
