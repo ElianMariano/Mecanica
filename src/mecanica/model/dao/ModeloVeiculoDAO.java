@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.control.Alert;
 import mecanica.model.domain.ModeloVeiculo;
+import org.postgresql.util.PSQLException;
 
 public class ModeloVeiculoDAO {
 
@@ -22,30 +24,35 @@ public class ModeloVeiculoDAO {
         this.connection = connection;
     }
 
-    public boolean inserir(ModeloVeiculo modeloVeiculo) {
+    public boolean inserir(ModeloVeiculo modeloVeiculo){
         String sql = "INSERT INTO modelo_veiculo (cod_modelo, moto, nome, descricao) VALUES (?,?,?,?);";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, modeloVeiculo.getCdModeloVeiculo());
+            stmt.setInt(1, modeloVeiculo.getCodigo());
             stmt.setBoolean(2, modeloVeiculo.getMoto());
             stmt.setString(3, modeloVeiculo.getNome());
             stmt.setString(4, modeloVeiculo.getDescricao());
             stmt.execute();
             return true;
-        } catch (SQLException ex) {
+        }
+        catch (PSQLException ex) {
+            Logger.getLogger(ModeloVeiculoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        catch (SQLException ex) {
             Logger.getLogger(ModeloVeiculoDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
 
     public boolean alterar(ModeloVeiculo modeloVeiculo) {
-        String sql = "UPDATE modelo_veiculo SET moto=?, nome=?, descicao=? WHERE cod_modelo=?;";
+        String sql = "UPDATE modelo_veiculo SET moto=?, nome=?, descricao=? WHERE cod_modelo=?;";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setBoolean(1, modeloVeiculo.getMoto());
             stmt.setString(2, modeloVeiculo.getNome());
             stmt.setString(3, modeloVeiculo.getDescricao());
-            stmt.setInt(4, modeloVeiculo.getCdModeloVeiculo());
+            stmt.setInt(4, modeloVeiculo.getCodigo());
             stmt.execute();
             return true;
         } catch (SQLException ex) {
@@ -58,7 +65,7 @@ public class ModeloVeiculoDAO {
         String sql = "DELETE FROM modelo_veiculo WHERE cod_modelo=?;";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, modeloVeiculo.getCdModeloVeiculo());
+            stmt.setInt(1, modeloVeiculo.getCodigo());
             stmt.execute();
             return true;
         } catch (SQLException ex) {
@@ -76,7 +83,7 @@ public class ModeloVeiculoDAO {
 
             while (resultado.next()) {
                 ModeloVeiculo modeloVeiculo = new ModeloVeiculo();
-                modeloVeiculo.setCdModeloVeiculo(resultado.getInt("cod_modelo"));
+                modeloVeiculo.setCodigo(resultado.getInt("cod_modelo"));
                 modeloVeiculo.setMoto(resultado.getBoolean("moto"));
                 modeloVeiculo.setNome(resultado.getString("nome"));
                 modeloVeiculo.setDescricao(resultado.getString("descricao"));
@@ -93,7 +100,7 @@ public class ModeloVeiculoDAO {
         ModeloVeiculo retorno = new ModeloVeiculo();
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, modeloVeiculo.getCdModeloVeiculo());
+            stmt.setInt(1, modeloVeiculo.getCodigo());
             ResultSet resultado = stmt.executeQuery();
             if (resultado.next()) {
                 modeloVeiculo.setMoto(resultado.getBoolean("moto"));

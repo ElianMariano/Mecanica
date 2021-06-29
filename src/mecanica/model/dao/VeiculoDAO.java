@@ -31,7 +31,7 @@ public class VeiculoDAO {
             stmt.setString(1, veiculo.getPlaca());
             stmt.setString(2, veiculo.getNome());
             stmt.setString(3, veiculo.getMarca());
-            stmt.setInt(4, veiculo.getModelo().getCdModeloVeiculo());
+            stmt.setInt(4, veiculo.getModelo().getCodigo());
             stmt.setString(5, veiculo.getCliente().getCpf());
             stmt.execute();
             return true;
@@ -47,7 +47,7 @@ public class VeiculoDAO {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, veiculo.getNome());
             stmt.setString(2, veiculo.getMarca());
-            stmt.setInt(3, veiculo.getModelo().getCdModeloVeiculo());
+            stmt.setInt(3, veiculo.getModelo().getCodigo());
             stmt.setString(4, veiculo.getCliente().getCpf());
             stmt.setString(5, veiculo.getPlaca());
             stmt.execute();
@@ -90,7 +90,7 @@ public class VeiculoDAO {
                 veiculo.setMarca(resultado.getString("marca"));
                 
                 // Define os indices do modelo e cliente
-                modelo.setCdModeloVeiculo(resultado.getInt("cod_modelo"));
+                modelo.setCodigo(resultado.getInt("cod_modelo"));
                 cliente.setCpf(resultado.getString("cod_cliente"));
                 
                 // Obtem os dados do ModeloVeiculo
@@ -130,7 +130,7 @@ public class VeiculoDAO {
                 veiculo.setMarca(resultado.getString("marca"));
                 
                 // Obtem o modelo e cliente
-                modelo.setCdModeloVeiculo(resultado.getInt("cod_modelo"));
+                modelo.setCodigo(resultado.getInt("cod_modelo"));
                 cliente.setCpf(resultado.getString("cod_cliente"));
                 
                 // Define o modelo e cliente no objeto veiculo

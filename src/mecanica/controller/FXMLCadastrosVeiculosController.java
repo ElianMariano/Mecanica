@@ -74,19 +74,6 @@ public class FXMLCadastrosVeiculosController implements Initializable {
         (observable, oldValue, newValue) -> selecionarTableViewVeiculos(newValue));
     }
     
-    public String quebrarLinha(String texto){
-        String[] palavras = texto.split(" ");
-        String resultado = "";
-        
-        for (int i = 0;i < palavras.length;i++){
-            resultado += String.format("%s ", palavras[i]);
-            
-            if (i % 4 == 0 && i != 0) resultado += "\n";
-        }
-        
-        return resultado;
-    }
-    
     public void selecionarTableViewVeiculos(Veiculo veiculo){
         if (veiculo != null){
             // Obtem o cliente
@@ -106,8 +93,9 @@ public class FXMLCadastrosVeiculosController implements Initializable {
             labelMarca.setText(veiculo.getMarca());
             labelMoto.setText((modelo.getMoto()) ? "Sim" : "Não");
             labelNomeVeiculo.setText(modelo.getNome());
-            labelDescricao.setText(quebrarLinha(String.format("Descrição: %s",
-                    modelo.getDescricao())));
+            String descricao = String.format("Descrição: %s",
+                    modelo.getDescricao());
+            labelDescricao.setText(Utils.quebrarLinha(descricao, 4));
         }
         else{
             labelPlaca.setText("");

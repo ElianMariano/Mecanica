@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -21,19 +22,24 @@ import javafx.stage.Stage;
 import mecanica.model.dao.ModeloVeiculoDAO;
 import mecanica.model.database.PostgreSQL;
 import mecanica.model.domain.ModeloVeiculo;
+import org.postgresql.util.PSQLException;
 
 public class FXMLCadastrosModelosVeiculosController implements Initializable {
 
     @FXML
-    private TableColumn<ModeloVeiculo, Integer> tableColumnCdModelo;
-    @FXML
     private TableView<ModeloVeiculo> tableViewModeloVeiculo;
     @FXML
-    private TableColumn<ModeloVeiculo, Boolean> tableColumnMoto;
+    private TableColumn<ModeloVeiculo, Integer> tableColumnCodigo;
     @FXML
     private TableColumn<ModeloVeiculo, String> tableColumnNome;
     @FXML
-    private TableColumn<ModeloVeiculo, String> tableColumnDescricao;
+    private Label labelCodigo;
+    @FXML
+    private Label labelNome;
+    @FXML
+    private Label labelMoto;
+    @FXML
+    private Label labelDescricao;
     @FXML
     private Button buttonInserir;
     @FXML
@@ -55,19 +61,35 @@ public class FXMLCadastrosModelosVeiculosController implements Initializable {
         carregarTableViewModeloVeiculo();
 
         // Listener acionado quando alterações ocorrem no tableview
-//        tableViewModeloVeiculo.getSelectionModel().selectedItemProperty().addListener(
-//        (observable, oldValue, newValue) -> selecionarTableViewModeloVeiculos(newValue));
+        tableViewModeloVeiculo.getSelectionModel().selectedItemProperty().addListener(
+        (observable, oldValue, newValue) -> selecionarTableViewModeloVeiculos(newValue));
+    }
+    
+    public void selecionarTableViewModeloVeiculos(ModeloVeiculo modelo){
+        if (modelo != null){
+            labelCodigo.setText(String.valueOf(modelo.getCodigo()));
+            labelNome.setText(modelo.getNome());
+            labelMoto.setText((modelo.getMoto()) ? "Sim" : "Não");
+            String descricao = String.format("Descrição: %s",
+                    modelo.getDescricao());
+            labelDescricao.setText(Utils.quebrarLinha(descricao, 4));
+        }
+        else{
+            labelCodigo.setText("");
+            labelNome.setText("");
+            labelMoto.setText("");
+            labelDescricao.setText("Descrição");
+        }
     }
 
     public void carregarTableViewModeloVeiculo() {
-        tableColumnCdModelo.setCellValueFactory(new PropertyValueFactory<>("cdModeloVeiculo"));
-        tableColumnMoto.setCellValueFactory(new PropertyValueFactory<>("moto"));
+        tableColumnCodigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
         tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        tableColumnDescricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
 
         listModeloVeiculos = ModeloVeiculoDao.listar();
 
         observableListModeloVeiculos = FXCollections.observableArrayList(listModeloVeiculos);
+        // TODO Consertar erro do tableView
         tableViewModeloVeiculo.setItems(observableListModeloVeiculos);
     }
 
@@ -103,8 +125,16 @@ public class FXMLCadastrosModelosVeiculosController implements Initializable {
         // Obtem verdadeiro se o veiculo for inserido
         boolean buttonConfirmarClicked = showCadastrosModeloVeiculosDialog(modeloVeiculo);
         if (buttonConfirmarClicked) {
+            
             // Insere o modelo do veiculo no banco de dados
-            ModeloVeiculoDao.inserir(modeloVeiculo);
+            boolean resultado = ModeloVeiculoDao.inserir(modeloVeiculo);
+            
+            if (!resultado){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Por favor, escolha um código válido!");
+                alert.show();
+            }
+            
             // Recarrega os dados do modelo do veiculo
             carregarTableViewModeloVeiculo();
         }

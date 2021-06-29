@@ -123,8 +123,7 @@ public class FXMLCadastrosVeiculosDialogController implements Initializable {
             comboBoxModelo.getSelectionModel().select(veiculo.getModelo());
             tableViewClientes.getSelectionModel().select(veiculo.getCliente());
             
-            if (!veiculo.getPlaca().isEmpty())
-                textFieldPlaca.setEditable(false);
+            textFieldPlaca.setEditable(false);
         }
     }
     

@@ -3,13 +3,13 @@
 .info-title{
     -fx-text-fill: black;
     -fx-font-size: 16px;
-    -fx-font-weight: bold;
+    font-weight: bold;
 }
 
 .infor-text{
     -fx-text-fill: black;
     -fx-font-size: 12px;
-    -fx-font-weight: regular;
+    -fx-font-weight: normal;
 }
 
 .info-property{

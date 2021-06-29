@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import mecanica.model.domain.ModeloVeiculo;
@@ -13,13 +14,13 @@ import mecanica.model.domain.ModeloVeiculo;
 public class FXMLCadastrosModeloVeiculosDialogController implements Initializable {
 
     @FXML
-    private TextField textFieldCdModeloVeiculo;
-    @FXML
-    private TextField textFieldMoto;
+    private TextField textFieldCodigo;
     @FXML
     private TextField textFieldNome;
     @FXML
     private TextField textFieldDescricao;
+    @FXML
+    private CheckBox checkBoxMoto;
     @FXML
     private Button buttonInserir;
     @FXML
@@ -52,22 +53,23 @@ public class FXMLCadastrosModeloVeiculosDialogController implements Initializabl
     public void setModeloVeiculo(ModeloVeiculo modeloVeiculo) {
         this.modeloVeiculo = modeloVeiculo;
 
-        if (modeloVeiculo != null) {
-            textFieldCdModeloVeiculo.setText(Integer.toString(modeloVeiculo.getCdModeloVeiculo()));
-            textFieldMoto.setText(Boolean.toString(modeloVeiculo.getMoto()));
+        if (modeloVeiculo != null && modeloVeiculo.getNome() != null) {
+            textFieldCodigo.setText(String.valueOf(modeloVeiculo.getCodigo()));
             textFieldNome.setText(modeloVeiculo.getNome());
             textFieldDescricao.setText(modeloVeiculo.getDescricao());
-
+            checkBoxMoto.setSelected(modeloVeiculo.getMoto());
+            
+            textFieldCodigo.setEditable(false);
         }
     }
 
     @FXML
     public void handleButtonConfirmar() {
         if (validarEntradaDeDados()) {
+            modeloVeiculo.setCodigo(Integer.valueOf(textFieldCodigo.getText()));
             modeloVeiculo.setNome(textFieldNome.getText());
-            modeloVeiculo.setMoto(Boolean.getBoolean(textFieldMoto.getText()));
+            modeloVeiculo.setMoto(checkBoxMoto.isSelected());
             modeloVeiculo.setDescricao(textFieldDescricao.getText());
-            modeloVeiculo.setCdModeloVeiculo(Integer.parseInt(textFieldCdModeloVeiculo.getText()));
 
             buttonConfirmarClicked = true;
             dialogStage.close();
@@ -82,21 +84,20 @@ public class FXMLCadastrosModeloVeiculosDialogController implements Initializabl
     // Valida a entrada de dados
     public boolean validarEntradaDeDados() {
         String errorMessage = "";
+        
+        if (textFieldCodigo.getText() == null || textFieldNome.getText().length() == 0 ||
+                !Utils.eNumero(textFieldCodigo.getText())) {
+            errorMessage += "Código inválido\n";
+        }
 
-        if (textFieldNome.getText() == null || textFieldNome.getText().length() == 0) {
+        if (textFieldNome.getText() == null || textFieldNome.getText().length() == 0
+                || textFieldNome.getText().length() > 100) {
             errorMessage += "Nome inválido\n";
         }
 
-        if (textFieldMoto.getText() == null || textFieldMoto.getText().length() == 0) {
-            errorMessage += "Moto inválida\n";
-        }
-
-        if (textFieldDescricao.getText() == null || textFieldDescricao.getText().length() == 0) {
+        if (textFieldDescricao.getText() == null || textFieldDescricao.getText().length() == 0
+                || textFieldDescricao.getText().length() > 500) {
             errorMessage += "Descrição inválido\n";
-        }
-
-        if (textFieldCdModeloVeiculo.getText() == null || textFieldCdModeloVeiculo.getText().length() == 0) {
-            errorMessage += "Codigo de Modelo do veiculo inválido\n";
         }
 
         if (errorMessage.equals("")) {

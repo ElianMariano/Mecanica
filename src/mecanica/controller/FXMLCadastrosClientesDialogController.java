@@ -62,8 +62,7 @@ public class FXMLCadastrosClientesDialogController implements Initializable {
             textFieldCidade.setText(cliente.getCidade());
             textFieldUf.setText(cliente.getUf());
             
-            if (!cliente.getCpf().isEmpty())
-                textFieldCpf.setEditable(false);
+            textFieldCpf.setEditable(false);
         }
     }
 

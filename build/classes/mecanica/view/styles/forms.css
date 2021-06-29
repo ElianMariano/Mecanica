@@ -6,6 +6,12 @@
     -fx-font-weight: bold;
 }
 
+.check-box{
+    -fx-text-fill: black;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
 .button{
     -fx-background-color: #638ce6;
     -fx-text-fill: white;
