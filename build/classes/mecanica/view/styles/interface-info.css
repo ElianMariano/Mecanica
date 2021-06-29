@@ -1,0 +1,19 @@
+/*Estilos utilizados nas informações da interface da aplicação*/
+
+.info-title{
+    -fx-text-fill: black;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.infor-text{
+    -fx-text-fill: black;
+    -fx-font-size: 12px;
+    -fx-font-weight: regular;
+}
+
+.info-property{
+    -fx-text-fill: black;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}

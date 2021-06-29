@@ -1,9 +1,11 @@
+/* Estilos genéricos utilizados em toda a aplicação */
+
 .menu-bar, .menu-bar:hover, .menu-bar:focused, .menu-bar:showing{
     -fx-background-color: #557ed9;
 }
 
 .label{
-    -fx-text-fill: black;
+    -fx-text-fill: white;
     -fx-font-size: 14px;
 }
 

@@ -1,0 +1,14 @@
+/*Estilos utilizados nos formulários da aplicação*/
+
+.label{
+    -fx-text-fill: black;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.button{
+    -fx-background-color: #638ce6;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}

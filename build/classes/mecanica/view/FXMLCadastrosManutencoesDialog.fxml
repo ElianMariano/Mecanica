@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -23,9 +24,9 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label alignment="CENTER" text="Código Manutenção" textAlignment="CENTER" GridPane.columnIndex="1" />
-            <Label alignment="CENTER" text="Descrição" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label alignment="CENTER" text="Código Veículo" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label alignment="CENTER" styleClass="info-property" text="Código Manutenção" textAlignment="CENTER" GridPane.columnIndex="1" />
+            <Label alignment="CENTER" styleClass="info-property" text="Descrição" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label alignment="CENTER" styleClass="info-property" text="Código Veículo" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="textFieldCdManutencao" prefHeight="24.0" prefWidth="123.0" GridPane.columnIndex="2" />
             <TextField fx:id="textFieldDescricao" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <TextField fx:id="textFieldCdVeiculo" GridPane.columnIndex="2" GridPane.rowIndex="2" />
@@ -38,4 +39,8 @@
          </children>
       </Group>
    </children>
+   <stylesheets>
+      <URL value="@styles/global.css" />
+      <URL value="@styles/interface-info.css" />
+   </stylesheets>
 </AnchorPane>
