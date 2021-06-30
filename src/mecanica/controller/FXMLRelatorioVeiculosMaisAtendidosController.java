@@ -7,7 +7,10 @@ package mecanica.controller;
 
 import java.net.URL;
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,43 +21,50 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import mecanica.model.dao.ModeloVeiculoDAO;
 import mecanica.model.dao.ServicoDAO;
 import mecanica.model.database.PostgreSQL;
 import mecanica.model.domain.ModeloVeiculo;
 import mecanica.model.domain.Servicos;
 
-/**
- * FXML Controller class
- *
- * @author Andre
- */
 public class FXMLRelatorioVeiculosMaisAtendidosController implements Initializable {
     
     @FXML
-    private TableView<ModeloVeiculo> tableViewVeiculo;
+    private TableView<ModeloVeiculo> tableViewModelo;
     @FXML
-    private TableColumn tableColumnVeiculo;
+    private TableColumn tableColumnCodigo;
+    @FXML
+    private TableColumn tableColumnMoto;
     @FXML
     private TableColumn tableColumnNome;
     @FXML
-    private TableColumn tableColumnPlaca;
-    @FXML
     private TableColumn tableColumnDescricao;
-    @FXML
-    private TableColumn tableColumnQuantidade;
+    
+    private ObservableList<ModeloVeiculo> observableListModelo;
+    private List<ModeloVeiculo> modelos = new ArrayList<>();
     
     // Atributos para a manupulação do banco de dados
     private final PostgreSQL postgresql = new PostgreSQL();
     private final Connection connection = postgresql.conectar();
-    private ServicoDAO servicoDao = new ServicoDAO();
+    private ModeloVeiculoDAO modeloDao = new ModeloVeiculoDAO();
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        carreagarTableViewRelatorio();
+        modeloDao.setConnection(connection);
+        
+        carregarTableViewRelatorio();
     }
     
-    public void carreagarTableViewRelatorio(){
-        // Carregar table view
+    public void carregarTableViewRelatorio(){
+        tableColumnCodigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
+        tableColumnMoto.setCellValueFactory(new PropertyValueFactory<>("moto"));
+        tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        tableColumnDescricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
+        
+        modelos = modeloDao.listar();
+        
+        observableListModelo = FXCollections.observableArrayList(modelos);
+        tableViewModelo.setItems(observableListModelo);
     }
     
     @FXML

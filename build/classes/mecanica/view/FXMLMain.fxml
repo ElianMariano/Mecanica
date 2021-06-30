@@ -29,7 +29,7 @@
           </Menu>
             <Menu mnemonicParsing="false" styleClass="menu-option" text="Relatórios">
                <items>
-                  <MenuItem mnemonicParsing="false" styleClass="item" text="Manutenções" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleRelatoriosVeiculos" styleClass="item" text="Modelos Mais Atendidos" />
                </items>
             </Menu>
         </menus>
