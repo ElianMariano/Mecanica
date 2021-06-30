@@ -34,6 +34,6 @@
             </Menu>
         </menus>
       </MenuBar>
-      <AnchorPane fx:id="anchorPane" layoutY="28.0" prefHeight="410.0" prefWidth="662.0" />
+      <AnchorPane fx:id="anchorPane" layoutY="28.0" prefHeight="410.0" prefWidth="662.0" styleClass="home" />
    </children>
 </AnchorPane>

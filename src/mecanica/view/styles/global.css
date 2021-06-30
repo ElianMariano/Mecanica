@@ -17,6 +17,10 @@
     -fx-background-color: white;
 }
 
+.home{
+    -fx-background-image: url("../imagens/logo.png");
+}
+
 .table-view .column-header * {
     -fx-background-color: #638ce6;
     -fx-border-style: none;
