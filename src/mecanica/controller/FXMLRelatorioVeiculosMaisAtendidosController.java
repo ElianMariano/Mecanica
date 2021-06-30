@@ -41,43 +41,24 @@ public class FXMLRelatorioVeiculosMaisAtendidosController implements Initializab
     @FXML
     private TableColumn tableColumnDescricao;
     @FXML
-    private TableColumn tableColumnQtdServicos;
-    @FXML
-    private Button buttonImprimir;
-    
-    @FXML
-    private PieChart pieChart;
-    private ObservableList<PieChart.Data> observableListPie;
+    private TableColumn tableColumnQuantidade;
     
     // Atributos para a manupulação do banco de dados
     private final PostgreSQL postgresql = new PostgreSQL();
     private final Connection connection = postgresql.conectar();
     private ServicoDAO servicoDao = new ServicoDAO();
-    private List<PieChart.Data> servicos;
-    /**
-     * Initializes the controller class.
-     */
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }
-
-    public void carregarServicos(){
-        
-              
-        //servicos.buscar(servico);
-         servicoDao.setConnection(connection);
-        // Obtem os dados do servico
-         servicos = servicoDao.quantidadeServicos();
-        
-        tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        tableColumnQtdServicos.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
-        
-        
-        // Adiciona os dados no observableList e o adiciona no PieChart
-        observableListPie = FXCollections.observableArrayList(servicos);
-        pieChart.setData(observableListPie);
-       
+        carreagarTableViewRelatorio();
     }
     
+    public void carreagarTableViewRelatorio(){
+        // Carregar table view
+    }
+    
+    @FXML
+    public void handleButtonImprimir(){
+        // Gerar relatório
+    }
 }
