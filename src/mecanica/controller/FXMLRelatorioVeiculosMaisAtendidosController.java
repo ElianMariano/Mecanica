@@ -31,7 +31,7 @@ import mecanica.model.domain.Servicos;
 public class FXMLRelatorioVeiculosMaisAtendidosController implements Initializable {
     
     @FXML
-    private TableView<ModeloVeiculo> tabeleviewRelatorio;
+    private TableView<ModeloVeiculo> tableViewVeiculo;
     @FXML
     private TableColumn tableColumnVeiculo;
     @FXML
