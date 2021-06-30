@@ -11,7 +11,7 @@
       <URL value="@styles/interface-info.css" />
    </stylesheets>
    <children>
-      <Label layoutX="143.0" layoutY="14.0" styleClass="info-title" text="Gráfico dos Serviços que mais ocorrem" />
+      <Label layoutX="173.0" layoutY="14.0" styleClass="info-title" text="Gráfico dos Serviços que mais ocorrem" />
       <PieChart fx:id="pieChart" layoutX="-3.0" layoutY="39.0" legendSide="RIGHT" prefHeight="360.0" prefWidth="606.0" />
    </children>
 </AnchorPane>

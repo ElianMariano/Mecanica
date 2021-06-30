@@ -72,7 +72,11 @@ CREATE TABLE manutencao_servico(
 INSERT INTO cliente (cpf, nome, nascimento, cidade, uf)
 	VALUES ('111.111.111-11', 'João da Silva', '1998-04-05', 'Cachoeiro de Itapemirim', 'ES');
 INSERT INTO cliente (cpf, nome, nascimento, cidade, uf)
-	VALUES ('111.111.111-12', 'Claudio dos Santos', '1986-02-28', 'Cachoeiro de Itapemirim', 'ES');
+	VALUES ('111.111.111-12', 'Claudio dos Santos', '1986-04-13', 'Vila Velha', 'ES');
+INSERT INTO cliente (cpf, nome, nascimento, cidade, uf)
+	VALUES ('111.111.111-22', 'Maria Sousa', '1987-09-29', 'Vitória', 'ES');
+INSERT INTO cliente (cpf, nome, nascimento, cidade, uf)
+	VALUES ('111.111.111-33', 'Paulo Ferreira', '1994-02-25', 'Marataízes', 'ES');
 
 -- Servicos
 INSERT INTO servico (cod_servico, nome, descricao, preco)
@@ -81,6 +85,12 @@ INSERT INTO servico (cod_servico, nome, descricao, preco)
 	VALUES (2, 'Troca do vidro', 'Troca de um vidro quebrado por um novo', 150.0);
 INSERT INTO servico (cod_servico, nome, descricao, preco)
 	VALUES (3, 'Revisão Elétrica', 'Revisão da parte elétrica do veículo', 50.0);
+INSERT INTO servico (cod_servico, nome, descricao, preco)
+	VALUES (4, 'Troca de Bateria', 'Troca da bateria do veículo', 200.0);
+INSERT INTO servico (cod_servico, nome, descricao, preco)
+	VALUES (5, 'Conserto do Câmbio', 'Conserto do Câmbio do veículo', 265.0);
+INSERT INTO servico (cod_servico, nome, descricao, preco)
+	VALUES (6, 'Troca da Vela da moto', 'Troca de uma vela que apresenta falhas por uma nova', 328.0);
 
 -- Modelos veículo
 INSERT INTO modelo_veiculo (cod_modelo, moto, nome, descricao)
@@ -93,6 +103,10 @@ INSERT INTO modelo_veiculo (cod_modelo, moto, nome, descricao)
 	VALUES (4, 'true', 'Custom', 'Motos para o público que gosta de viajar em estradas');
 INSERT INTO modelo_veiculo (cod_modelo, moto, nome, descricao)
 	VALUES (5, 'true', 'Street', 'Motos para as tarefas do dia a dia');
+INSERT INTO modelo_veiculo (cod_modelo, moto, nome, descricao)
+	VALUES (6, 'true', 'Big Trail', 'Moto de trilha');
+INSERT INTO modelo_veiculo (cod_modelo, moto, nome, descricao)
+	VALUES (7, 'true', 'Naked', 'Média ou alta cilindrada e sem carenagem');
 
 -- Veiculos
 INSERT INTO veiculo (placa, nome, marca, cod_modelo, cod_cliente)
@@ -100,16 +114,38 @@ INSERT INTO veiculo (placa, nome, marca, cod_modelo, cod_cliente)
 INSERT INTO veiculo (placa, nome, marca, cod_modelo, cod_cliente)
 	VALUES ('AAAAA-AB', 'Ford Territory', 'Ford', 1, '111.111.111-12');
 INSERT INTO veiculo (placa, nome, marca, cod_modelo, cod_cliente)
-	VALUES ('AAAAA-AC', 'CG 160 Start', 'Honda', 5, '111.111.111-12');
+	VALUES ('AAAAA-AC', 'CG 160 Start', 'Honda', 5, '111.111.111-33');
+INSERT INTO veiculo (placa, nome, marca, cod_modelo, cod_cliente)
+	VALUES ('AAAAA-DD', 'Chery Tiggo 2', 'Chery', 1, '111.111.111-12');
+INSERT INTO veiculo (placa, nome, marca, cod_modelo, cod_cliente)
+	VALUES ('GGGGG-DD', 'BMW Série 4', 'BMW', 3, '111.111.111-22');
+INSERT INTO veiculo (placa, nome, marca, cod_modelo, cod_cliente)
+	VALUES ('LLLLL-DD', 'Honda CB Twister', 'Honda', 7, '111.111.111-33');
+INSERT INTO veiculo (placa, nome, marca, cod_modelo, cod_cliente)
+	VALUES ('EEEEE-QQ', 'BMW Série 4', 'BMW', 3, '111.111.111-11');
+INSERT INTO veiculo (placa, nome, marca, cod_modelo, cod_cliente)
+	VALUES ('PPPPP-DD', 'Dafra Kansas 250', 'Honda', 5, '111.111.111-33');
 
 -- Manutençoes
 INSERT INTO manutencao(cod_manutencao, descricao, cod_veiculo)
 	VALUES (1, 'Troca de PNEU', 'AAAAA-AB');
 INSERT INTO manutencao(cod_manutencao, descricao, cod_veiculo)
 	VALUES (2, 'Troca do vidro', 'AAAAA-AB');
+INSERT INTO manutencao(cod_manutencao, descricao, cod_veiculo)
+	VALUES (3, 'Revisão Elétrica', 'EEEEE-QQ');
+INSERT INTO manutencao(cod_manutencao, descricao, cod_veiculo)
+	VALUES (4, 'Troca do vidro', 'EEEEE-QQ');
+INSERT INTO manutencao(cod_manutencao, descricao, cod_veiculo)
+	VALUES (5, 'Troca da vela', 'PPPPP-DD');
 
 -- Dados que ligam as tabelas manutencoes e servico
 INSERT INTO manutencao_servico(cod_manutencao, cod_servico)
 	VALUES (1, 1);
 INSERT INTO manutencao_servico(cod_manutencao, cod_servico)
-	VALUES (1, 2);
+	VALUES (2, 2);
+INSERT INTO manutencao_servico(cod_manutencao, cod_servico)
+	VALUES (3, 3);
+INSERT INTO manutencao_servico(cod_manutencao, cod_servico)
+	VALUES (4, 2);
+INSERT INTO manutencao_servico(cod_manutencao, cod_servico)
+	VALUES (5, 6);
