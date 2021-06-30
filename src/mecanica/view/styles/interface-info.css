@@ -1,5 +1,10 @@
 /*Estilos utilizados nas informações da interface da aplicação*/
 
+.label{
+    -fx-text-fill: black;
+    -fx-font-size: 14px;
+}
+
 .info-title{
     -fx-text-fill: black;
     -fx-font-size: 16px;

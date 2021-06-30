@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mecanica.controller.FXMLGraficosServicosController">
+   <stylesheets>
+      <URL value="@styles/global.css" />
+      <URL value="@styles/interface-info.css" />
+   </stylesheets>
+   <children>
+      <Label layoutX="143.0" layoutY="14.0" styleClass="info-title" text="Gráfico dos Serviços que mais ocorrem" />
+      <PieChart fx:id="pieChart" layoutX="-3.0" layoutY="39.0" legendSide="RIGHT" prefHeight="360.0" prefWidth="606.0" />
+   </children>
+</AnchorPane>

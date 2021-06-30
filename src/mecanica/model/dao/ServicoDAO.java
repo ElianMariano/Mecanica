@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.chart.PieChart;
 import mecanica.model.domain.Servicos;
 import org.postgresql.util.PSQLException;
 
@@ -71,6 +72,33 @@ public class ServicoDAO {
             Logger.getLogger(ServicoDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+    }
+    
+    public List<PieChart.Data> quantidadeServicos(){
+        String sql = "SELECT COUNT(ms) AS quantidade, s.nome, \n" + 
+"           s.descricao, s.preco\n" +
+"	FROM manutencao_servico ms\n" +
+"	INNER JOIN servico s ON ms.cod_servico = s.cod_servico\n" +
+"	GROUP BY s.nome, s.descricao, s.preco\n" +
+"	ORDER BY quantidade;";
+        
+        List<PieChart.Data> retorno = new ArrayList<>();
+        try{
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            ResultSet resultado = stmt.executeQuery();
+            
+            while(resultado.next()){
+                PieChart.Data dado = new PieChart.Data(resultado.getString("nome"),
+                resultado.getInt("quantidade"));
+                
+                retorno.add(dado);
+            }
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(ServicoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return retorno;
     }
 
     public List<Servicos> listar() {

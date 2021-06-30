@@ -24,7 +24,7 @@
           </Menu>
           <Menu mnemonicParsing="false" styleClass="menu-option" text="Gráficos">
             <items>
-              <MenuItem mnemonicParsing="false" styleClass="item" text="Quantidade De Manutenções" />
+              <MenuItem mnemonicParsing="false" onAction="#handleGraficosServicos" styleClass="item" text="Serviços que mais ocorrem" />
             </items>
           </Menu>
             <Menu mnemonicParsing="false" styleClass="menu-option" text="Relatórios">
