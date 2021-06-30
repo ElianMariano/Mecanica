@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.chart.PieChart;
 import mecanica.model.domain.Manutencao;
 
 public class ManutencaoDAO {
@@ -65,6 +66,32 @@ public class ManutencaoDAO {
         }
     }
 
+    public List<PieChart.Data> quantidadeServicos(){
+        String sql = "SELECT COUNT(ms) AS quantidade, m.cod_manutencao, \n" + 
+"           m.descricao, m.cod_veiculo\n" +
+"	FROM manutencao m\n" +
+"	GROUP BY m.cod_manutencao, m.descricao, m.cod_veiculo\n" +
+"	ORDER BY quantidade;";
+        
+        List<PieChart.Data> retorno = new ArrayList<>();
+        try{
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            ResultSet resultado = stmt.executeQuery();
+            
+            while(resultado.next()){
+                PieChart.Data dado = new PieChart.Data(resultado.getString("cod_manutencao"),
+                resultado.getInt("quantidade"));
+                
+                retorno.add(dado);
+            }
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(ServicoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return retorno;
+    }
+    
     public List<Manutencao> listar() {
         String sql = "SELECT * FROM manutencao;";
         List<Manutencao> retorno = new ArrayList<>();
