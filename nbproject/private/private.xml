@@ -2,6 +2,15 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/trabalhos/Mecanica/src/mecanica/model/dao/ClienteDAO.java</file>
+            <file>file:/C:/trabalhos/Mecanica/src/mecanica/controller/FXMLRelatorioVeiculosMaisAtendidosController.java</file>
+            <file>file:/C:/trabalhos/Mecanica/src/mecanica/view/FXMLCadastrosClientes.fxml</file>
+            <file>file:/C:/trabalhos/Mecanica/src/mecanica/model/dao/ModeloVeiculoDAO.java</file>
+            <file>file:/C:/trabalhos/Mecanica/src/mecanica/model/dao/ServicoDAO.java</file>
+            <file>file:/C:/trabalhos/Mecanica/src/mecanica/model/domain/ModeloVeiculo.java</file>
+            <file>file:/C:/trabalhos/Mecanica/src/mecanica/controller/FXMLGraficosServicosController.java</file>
+            <file>file:/C:/trabalhos/Mecanica/src/mecanica/view/FXMLRelatorioVeiculosMaisAtendidos.fxml</file>
+        </group>
     </open-files>
 </project-private>
