@@ -86,7 +86,7 @@ public class FXMLCadastrosModeloVeiculosDialogController implements Initializabl
         String errorMessage = "";
         
         if (textFieldCodigo.getText() == null || textFieldNome.getText().length() == 0 ||
-                !Utils.eNumero(textFieldCodigo.getText())) {
+                !Utils.eInteiro(textFieldCodigo.getText())) {
             errorMessage += "Código inválido\n";
         }
 

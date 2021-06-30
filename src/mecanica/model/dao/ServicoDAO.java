@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import mecanica.model.domain.Servicos;
+import org.postgresql.util.PSQLException;
 
 public class ServicoDAO {
 
@@ -26,13 +27,18 @@ public class ServicoDAO {
         String sql = "INSERT INTO servico (cod_servico, nome, descricao, preco) VALUES (?,?,?,?);";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, servico.getcdServico());
+            stmt.setInt(1, servico.getCodigo());
             stmt.setString(2, servico.getNome());
             stmt.setString(3, servico.getDescricao());
             stmt.setDouble(4, servico.getPreco());
             stmt.execute();
             return true;
-        } catch (SQLException ex) {
+        }
+        catch (PSQLException ex) {
+            Logger.getLogger(ServicoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        catch (SQLException ex) {
             Logger.getLogger(ServicoDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
@@ -42,10 +48,10 @@ public class ServicoDAO {
         String sql = "UPDATE servico SET nome=?, descricao=?, preco=? WHERE cod_servico=?;";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, servico.getcdServico());
-            stmt.setString(2, servico.getNome());
-            stmt.setString(3, servico.getDescricao());
-            stmt.setDouble(4, servico.getPreco());
+            stmt.setString(1, servico.getNome());
+            stmt.setString(2, servico.getDescricao());
+            stmt.setDouble(3, servico.getPreco());
+            stmt.setInt(4, servico.getCodigo());
             stmt.execute();
             return true;
         } catch (SQLException ex) {
@@ -58,7 +64,7 @@ public class ServicoDAO {
         String sql = "DELETE FROM servico WHERE cod_servico=?;";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, servico.getcdServico());
+            stmt.setInt(1, servico.getCodigo());
             stmt.execute();
             return true;
         } catch (SQLException ex) {
@@ -76,7 +82,7 @@ public class ServicoDAO {
 
             while (resultado.next()) {
                 Servicos servico = new Servicos();
-                servico.setcdServico(resultado.getInt("cod_servico"));
+                servico.setCodigo(resultado.getInt("cod_servico"));
                 servico.setNome(resultado.getString("nome"));
                 servico.setDescricao(resultado.getString("descricao"));
                 servico.setPreco(resultado.getDouble("preco"));
@@ -93,7 +99,7 @@ public class ServicoDAO {
         Servicos retorno = new Servicos();
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, servico.getcdServico());
+            stmt.setInt(1, servico.getCodigo());
             ResultSet resultado = stmt.executeQuery();
             if (resultado.next()) {
                 servico.setNome(resultado.getString("nome"));

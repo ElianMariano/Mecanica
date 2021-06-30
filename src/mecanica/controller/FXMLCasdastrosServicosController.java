@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -25,15 +26,19 @@ import mecanica.model.domain.Servicos;
 public class FXMLCasdastrosServicosController implements Initializable {
 
     @FXML
-    private TableColumn<Servicos, Integer> tableColumncdServico;
-    @FXML
-    private TableView<Servicos> tableViewServicos;
+    private TableView<Servicos> tableViewServico;
     @FXML
     private TableColumn<Servicos, String> tableColumnNome;
     @FXML
-    private TableColumn<Servicos, String> tableColumnDescricao;
+    private TableColumn<Servicos, Integer> tableColumnCodigo;
     @FXML
-    private TableColumn<Servicos, Double> tableColumnPreco;
+    private Label labelCodigo;
+    @FXML
+    private Label labelNome;
+    @FXML
+    private Label labelPreco;
+    @FXML
+    private Label labelDescricao;
     @FXML
     private Button buttonInserir;
     @FXML
@@ -55,20 +60,35 @@ public class FXMLCasdastrosServicosController implements Initializable {
         carregarTableViewServico();
 
         // Listener acionado quando alterações ocorrem no tableview
-//        tableViewModeloVeiculo.getSelectionModel().selectedItemProperty().addListener(
-//        (observable, oldValue, newValue) -> selecionarTableViewModeloVeiculos(newValue));
+        tableViewServico.getSelectionModel().selectedItemProperty().addListener(
+        (observable, oldValue, newValue) -> selecionarTableViewServico(newValue));
+    }
+    
+    public void selecionarTableViewServico(Servicos servico){
+        if (servico != null){
+            labelCodigo.setText(String.valueOf(servico.getCodigo()));
+            labelNome.setText(servico.getNome());
+            labelPreco.setText(String.format("R$ %.2f", servico.getPreco()));
+            String descricao = String.format("Descrição: %s",
+                    servico.getDescricao());
+            labelDescricao.setText(Utils.quebrarLinha(descricao, 7));
+        }
+        else{
+            labelCodigo.setText("");
+            labelNome.setText("");
+            labelPreco.setText("");
+            labelDescricao.setText("Descrição");
+        }
     }
 
     public void carregarTableViewServico() {
-        tableColumncdServico.setCellValueFactory(new PropertyValueFactory<>("cod_servico"));
-        tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("Nome"));
-        tableColumnDescricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
-        tableColumnPreco.setCellValueFactory(new PropertyValueFactory<>("preco"));
+        tableColumnCodigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
+        tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
 
         listServicos = ServicoDao.listar();
 
         observableListServicos = FXCollections.observableArrayList(listServicos);
-        tableViewServicos.setItems(observableListServicos);
+        tableViewServico.setItems(observableListServicos);
     }
 
     public boolean showCadastrosServicosDialog(Servicos Servicos) throws IOException {
@@ -104,7 +124,12 @@ public class FXMLCasdastrosServicosController implements Initializable {
         boolean buttonConfirmarClicked = showCadastrosServicosDialog(Servicos);
         if (buttonConfirmarClicked) {
             // Insere os Serviços no banco de dados
-            ServicoDao.inserir(Servicos);
+            boolean resultado = ServicoDao.inserir(Servicos);
+            if (!resultado){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Por favor, insira um código disponível!");
+                alert.show();
+            }
             // Recarrega os dados dos Serviços
             carregarTableViewServico();
         }
@@ -112,7 +137,7 @@ public class FXMLCasdastrosServicosController implements Initializable {
 
     @FXML
     public void handleButtonAlterar() throws IOException {
-        Servicos Servicos = tableViewServicos.getSelectionModel().getSelectedItem();
+        Servicos Servicos = tableViewServico.getSelectionModel().getSelectedItem();
 
         if (Servicos != null) {
             boolean buttonConfirmarClicked = showCadastrosServicosDialog(Servicos);
@@ -130,7 +155,7 @@ public class FXMLCasdastrosServicosController implements Initializable {
 
     @FXML
     public void handleButtonRemover() throws IOException {
-        Servicos Servicos = tableViewServicos.getSelectionModel().getSelectedItem();
+        Servicos Servicos = tableViewServico.getSelectionModel().getSelectedItem();
 
         if (Servicos != null) {
             ServicoDao.remover(Servicos);

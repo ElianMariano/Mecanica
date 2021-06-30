@@ -4,17 +4,17 @@ import java.io.Serializable;
 
 public class Servicos implements Serializable {
 
-    private Integer cdServico;
+    private int codigo;
     private String nome;
     private String descricao;
-    private Double preco;
+    private double preco;
 
-    public int getcdServico() {
-        return cdServico;
+    public int getCodigo() {
+        return codigo;
     }
 
-    public void setcdServico(int cdServico) {
-        this.cdServico = cdServico;
+    public void setCodigo(int cdServico) {
+        this.codigo = cdServico;
     }
 
     public String getNome() {
@@ -33,7 +33,7 @@ public class Servicos implements Serializable {
         this.descricao = descricao;
     }
     
-    public Double getPreco(){
+    public double getPreco(){
         return this.preco;
     }
     
@@ -45,6 +45,6 @@ public class Servicos implements Serializable {
     public String toString() {
 
         return String.format("(Codigo: %d, Nome: %s, Descrição: %s, Preço: %.2f)",
-                cdServico, nome, descricao, preco);
+                codigo, nome, descricao, preco);
     }
 }

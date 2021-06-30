@@ -13,7 +13,7 @@ import mecanica.model.domain.Servicos;
 public class FXMLCadastrosServicosDialogController implements Initializable {
 
     @FXML
-    private TextField textFieldcdServico;
+    private TextField textFieldCodigo;
     @FXML
     private TextField textFieldNome;
     @FXML
@@ -52,12 +52,13 @@ public class FXMLCadastrosServicosDialogController implements Initializable {
     public void setServicos(Servicos servico) {
         this.servico = servico;
 
-        if (servico != null) {
-            textFieldcdServico.setText(Integer.toString(servico.getcdServico()));
+        if (servico != null && servico.getNome() != null) {
+            textFieldCodigo.setText(String.valueOf(servico.getCodigo()));
             textFieldNome.setText((servico.getNome()));
             textFieldDescricao.setText(servico.getDescricao());
             textFieldPreco.setText(Double.toString(servico.getPreco()));
-
+            
+            textFieldCodigo.setEditable(false);
         }
     }
 
@@ -65,7 +66,7 @@ public class FXMLCadastrosServicosDialogController implements Initializable {
     public void handleButtonConfirmar() {
         if (validarEntradaDeDados()) {
             servico.setNome(textFieldNome.getText());
-            servico.setcdServico(Integer.getInteger(textFieldcdServico.getText()));
+            servico.setCodigo(Integer.valueOf(textFieldCodigo.getText()));
             servico.setDescricao(textFieldDescricao.getText());
             servico.setPreco(Double.parseDouble(textFieldPreco.getText()));
 
@@ -83,19 +84,23 @@ public class FXMLCadastrosServicosDialogController implements Initializable {
     public boolean validarEntradaDeDados() {
         String errorMessage = "";
 
-        if (textFieldNome.getText() == null || textFieldNome.getText().length() == 0) {
+        if (textFieldNome.getText() == null || textFieldNome.getText().length() == 0
+                || textFieldNome.getText().length() > 100) {
             errorMessage += "Nome inválido\n";
         }
 
-        if (textFieldcdServico.getText() == null || textFieldcdServico.getText().length() == 0) {
-            errorMessage += "Serviço não existe\n";
+        if (textFieldCodigo.getText() == null || textFieldCodigo.getText().length() == 0
+                || !Utils.eInteiro(textFieldCodigo.getText())) {
+            errorMessage += "Código inválido\n";
         }
 
-        if (textFieldDescricao.getText() == null || textFieldDescricao.getText().length() == 0) {
-            errorMessage += "Inválido\n";
+        if (textFieldDescricao.getText() == null || textFieldDescricao.getText().length() == 0
+                || textFieldDescricao.getText().length() > 500) {
+            errorMessage += "Descrição inválida\n";
         }
 
-        if (textFieldPreco.getText() == null || textFieldPreco.getText().length() == 0) {
+        if (textFieldPreco.getText() == null || textFieldPreco.getText().length() == 0
+                || !Utils.eDouble(textFieldPreco.getText())) {
             errorMessage += "Preço Inválido\n";
         }
 

@@ -18,10 +18,21 @@ public class Utils {
         return resultado;
     }
     
-    // Função que retorna verdadeiro se String for número
-    public static boolean eNumero(String numero){
+    // Função que retorna verdadeiro se String for inteiro
+    public static boolean eInteiro(String numero){
         try{
             Integer.parseInt(numero);
+            return true;
+        }
+        catch(Exception e){
+            return false;
+        }
+    }
+    
+    // Função que retorna verdadeiro se String for double
+    public static boolean eDouble(String numero){
+        try{
+            Double.parseDouble(numero);
             return true;
         }
         catch(Exception e){

@@ -89,10 +89,6 @@ public class FXMLCadastrosVeiculosDialogController implements Initializable {
         
         carregarComboBoxModelo();
         carregarTableViewCliente();
-        
-        // Listener acionado quando alterações ocorrem no tableview
-//        tableViewClientes.getSelectionModel().selectedItemProperty().addListener(
-//        (observable, oldValue, newValue) -> selecionarTableViewClientes(newValue));
     }
     
     public void carregarComboBoxModelo(){
