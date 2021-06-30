@@ -8,13 +8,13 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="410.0" prefWidth="662.0" stylesheets="@styles/global.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mecanica.controller.FXMLRelatorioVeiculosMaisAtendidosController">
    <children>
-      <TableView fx:id="tableViewCliente" prefHeight="366.0" prefWidth="662.0">
+      <TableView fx:id="tableViewVeiculo" prefHeight="366.0" prefWidth="662.0">
          <columns>
-            <TableColumn fx:id="tableColumnVeiculo" prefWidth="128.0" text="Veiculo" />
+            <TableColumn fx:id="tableColumnCodigo" prefWidth="128.0" text="Veiculo" />
             <TableColumn fx:id="tableColumnNome" prefWidth="116.0" text="Nome" />
             <TableColumn fx:id="tableColumnPlaca" prefWidth="114.0" text="placa" />
             <TableColumn fx:id="tableColumnDescricao" prefWidth="121.0" text="Descição" />
-            <TableColumn fx:id="tableColumnQtdServicos" prefWidth="182.0" text="quantidade de serviços" />
+            <TableColumn fx:id="tableColumnQuantidade" prefWidth="182.0" text="quantidade de serviços" />
          </columns>
       </TableView>
       <Group layoutX="231.0" layoutY="374.0" />
