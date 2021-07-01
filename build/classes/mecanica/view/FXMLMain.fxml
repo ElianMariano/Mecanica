@@ -19,7 +19,7 @@
           </Menu>
           <Menu mnemonicParsing="false" styleClass="menu-option" text="Processos">
             <items>
-                  <MenuItem mnemonicParsing="false" onAction="#handleProcessosManutencoes" styleClass="item" text="Menutenções" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleProcessosManutencoes" styleClass="item" text="Manutenções" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" styleClass="menu-option" text="Gráficos">

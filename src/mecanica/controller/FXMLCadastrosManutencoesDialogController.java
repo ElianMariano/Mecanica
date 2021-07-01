@@ -56,18 +56,18 @@ public class FXMLCadastrosManutencoesDialogController implements Initializable {
         this.manutencao = manutencao;
 
         if (manutencao != null) {
-            textFieldCdManutencao.setText(Integer.toString(manutencao.getCdManutencao()));
-            textFieldDescricao.setText(manutencao.getDescricao());
-            textFieldCdVeiculo.setText(manutencao.getCdVeiculo());
+//            textFieldCdManutencao.setText(Integer.toString(manutencao.getCdManutencao()));
+//            textFieldDescricao.setText(manutencao.getDescricao());
+//            textFieldCdVeiculo.setText(manutencao.getCdVeiculo());
         }
     }
 
     @FXML
     public void handleButtonConfirmar() {
         if (validarEntradaDeDados()) {
-            manutencao.setCdManutencao(Integer.parseInt(textFieldCdManutencao.getText()));
-            manutencao.setDescricao(textFieldDescricao.getText());
-            manutencao.setCdVeiculo(textFieldCdVeiculo.getText());
+//            manutencao.setCdManutencao(Integer.parseInt(textFieldCdManutencao.getText()));
+//            manutencao.setDescricao(textFieldDescricao.getText());
+//            manutencao.setCdVeiculo(textFieldCdVeiculo.getText());
 
             buttonConfirmarClicked = true;
             dialogStage.close();

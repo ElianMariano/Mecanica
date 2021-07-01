@@ -4,16 +4,16 @@ import java.io.Serializable;
 
 public class Servicos implements Serializable {
 
-    private int codigo;
+    private Integer codigo;
     private String nome;
     private String descricao;
     private double preco;
 
-    public int getCodigo() {
+    public Integer getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(int cdServico) {
+    public void setCodigo(Integer cdServico) {
         this.codigo = cdServico;
     }
 

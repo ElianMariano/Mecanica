@@ -3,38 +3,27 @@ package mecanica.model.domain;
 import java.io.Serializable;
 
 public class Manutencao implements Serializable {
-    private Integer cdManutencao;
-    private String descricao;
-    private String cdVeiculo;
+    private Integer codigo;
+    private Veiculo veiculo;
 
-    public Integer getCdManutencao() {
-        return cdManutencao;
+    public Integer getCodigo() {
+        return this.codigo;
     }
 
-    public void setCdManutencao(Integer cdManutencao) {
-        this.cdManutencao = cdManutencao;
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
+    }
+    
+    public Veiculo getVeiculo() {
+        return this.veiculo;
     }
 
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public String getCdVeiculo() {
-        return cdVeiculo;
-    }
-
-    public void setCdVeiculo(String cdVeiculo) {
-        this.cdVeiculo = cdVeiculo;
+    public void setVeiculo(Veiculo veiculo) {
+        this.veiculo = veiculo;
     }
     
     @Override
     public String toString() {
-
-        return String.format("(Código de Manutenção: %d, Descrição: %s, Código do Veículo: %s)",
-                cdManutencao, descricao, cdVeiculo);
+        return String.format("Id: %d", this.codigo);
     }
 }

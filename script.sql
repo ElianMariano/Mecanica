@@ -45,7 +45,6 @@ CREATE TABLE veiculo(
 
 CREATE TABLE manutencao(
 	cod_manutencao  INTEGER        NOT NULL,
-	descricao       VARCHAR(500)   NOT NULL,
 	cod_veiculo     VARCHAR(8)    NOT NULL,
 	CONSTRAINT pk_manutencao
 		PRIMARY KEY (cod_manutencao),
@@ -55,8 +54,11 @@ CREATE TABLE manutencao(
 );
 
 CREATE TABLE manutencao_servico(
-	cod_manutencao INTEGER NOT NULL,
-	cod_servico INTEGER NOT NULL,
+	cod_manutencao 	INTEGER 		NOT NULL,
+	cod_servico		INTEGER			NOT NULL,
+	dia				DATE			NOT NULL,
+	inicio			TIME			NOT NULL,
+	fim				TIME			NOT NULL,
 	CONSTRAINT pk_manutencao_veiculo
 		PRIMARY KEY (cod_manutencao, cod_servico),
 	CONSTRAINT fk_manutencao_mv
@@ -127,25 +129,25 @@ INSERT INTO veiculo (placa, nome, marca, cod_modelo, cod_cliente)
 	VALUES ('PPPPP-DD', 'Dafra Kansas 250', 'Honda', 5, '111.111.111-33');
 
 -- Manutençoes
-INSERT INTO manutencao(cod_manutencao, descricao, cod_veiculo)
-	VALUES (1, 'Troca de PNEU', 'AAAAA-AB');
-INSERT INTO manutencao(cod_manutencao, descricao, cod_veiculo)
-	VALUES (2, 'Troca do vidro', 'AAAAA-AB');
-INSERT INTO manutencao(cod_manutencao, descricao, cod_veiculo)
-	VALUES (3, 'Revisão Elétrica', 'EEEEE-QQ');
-INSERT INTO manutencao(cod_manutencao, descricao, cod_veiculo)
-	VALUES (4, 'Troca do vidro', 'EEEEE-QQ');
-INSERT INTO manutencao(cod_manutencao, descricao, cod_veiculo)
-	VALUES (5, 'Troca da vela', 'PPPPP-DD');
+INSERT INTO manutencao(cod_manutencao, cod_veiculo)
+	VALUES (1, 'AAAAA-AB');
+INSERT INTO manutencao(cod_manutencao, cod_veiculo)
+	VALUES (2, 'AAAAA-AB');
+INSERT INTO manutencao(cod_manutencao, cod_veiculo)
+	VALUES (3, 'EEEEE-QQ');
+INSERT INTO manutencao(cod_manutencao, cod_veiculo)
+	VALUES (4, 'EEEEE-QQ');
+INSERT INTO manutencao(cod_manutencao, cod_veiculo)
+	VALUES (5, 'PPPPP-DD');
 
 -- Dados que ligam as tabelas manutencoes e servico
-INSERT INTO manutencao_servico(cod_manutencao, cod_servico)
-	VALUES (1, 1);
-INSERT INTO manutencao_servico(cod_manutencao, cod_servico)
-	VALUES (2, 2);
-INSERT INTO manutencao_servico(cod_manutencao, cod_servico)
-	VALUES (3, 3);
-INSERT INTO manutencao_servico(cod_manutencao, cod_servico)
-	VALUES (4, 2);
-INSERT INTO manutencao_servico(cod_manutencao, cod_servico)
-	VALUES (5, 6);
+INSERT INTO manutencao_servico(cod_manutencao, cod_servico, dia, inicio, fim)
+	VALUES (1, 1, '2020-06-15', '9:00', '10:30');
+INSERT INTO manutencao_servico(cod_manutencao, cod_servico, dia, inicio, fim)
+	VALUES (2, 2, '2020-07-04', '14:30', '15:15');
+INSERT INTO manutencao_servico(cod_manutencao, cod_servico, dia, inicio, fim)
+	VALUES (3, 3, '2020-06-01', '16:00', '16:40');
+INSERT INTO manutencao_servico(cod_manutencao, cod_servico, dia, inicio, fim)
+	VALUES (4, 2, '2020-08-29', '11:30', '14:15');
+INSERT INTO manutencao_servico(cod_manutencao, cod_servico, dia, inicio, fim)
+	VALUES (5, 6, '2020-09-14', '14:30', '15:00');
