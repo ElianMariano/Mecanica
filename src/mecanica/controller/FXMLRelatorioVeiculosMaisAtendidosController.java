@@ -26,6 +26,12 @@ import mecanica.model.dao.ServicoDAO;
 import mecanica.model.database.PostgreSQL;
 import mecanica.model.domain.ModeloVeiculo;
 import mecanica.model.domain.Servicos;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class FXMLRelatorioVeiculosMaisAtendidosController implements Initializable {
     
@@ -68,7 +74,15 @@ public class FXMLRelatorioVeiculosMaisAtendidosController implements Initializab
     }
     
     @FXML
-    public void handleButtonImprimir(){
-        // Gerar relatório
+    public void handleButtonImprimir() throws JRException{
+        //HashMap filtro = new HashMap();
+        //filtro.put("cdCategoria", 1);
+
+        URL url = getClass().getResource("/mecanica/relatorios/RelatorioVeiculos.jasper");
+        JasperReport jasperReport = (JasperReport) JRLoader.loadObject(url);
+
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, connection);//null: caso não existam filtros
+        JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);//false: não deixa fechar a aplicação principal
+        jasperViewer.setVisible(true);
     }
 }
