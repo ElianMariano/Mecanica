@@ -75,14 +75,12 @@ public class FXMLRelatorioVeiculosMaisAtendidosController implements Initializab
     
     @FXML
     public void handleButtonImprimir() throws JRException{
-        //HashMap filtro = new HashMap();
-        //filtro.put("cdCategoria", 1);
-
-        URL url = getClass().getResource("/mecanica/relatorios/RelatorioVeiculos.jasper");
+        URL url = getClass().getResource("/mecanica/relatorios/RelatorioVeiculosMaisAtendidos.jasper");
         JasperReport jasperReport = (JasperReport) JRLoader.loadObject(url);
 
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, connection);//null: caso não existam filtros
-        JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);//false: não deixa fechar a aplicação principal
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, connection);
+        
+        JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
         jasperViewer.setVisible(true);
     }
 }
