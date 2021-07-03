@@ -7,9 +7,6 @@ public class ManutencaoServico implements Serializable{
     private int codigo;
     private Manutencao manutencao;
     private Servicos servico;
-    private Date dia;
-    private String inicio;
-    private String fim;
     
     public int getCodigo(){
         return this.codigo;
@@ -33,30 +30,6 @@ public class ManutencaoServico implements Serializable{
     
     public void setServico(Servicos servico){
         this.servico = servico;
-    }
-    
-    public Date getDia(){
-        return this.dia;
-    }
-    
-    public void setDia(Date dia){
-        this.dia = dia;
-    }
-    
-    public String getInicio(){
-        return this.inicio;
-    }
-    
-    public void setInicio(String inicio){
-        this.inicio = inicio;
-    }
-    
-    public String getFim(){
-        return this.fim;
-    }
-    
-    public void setFim(String fim){
-        this.fim = fim;
     }
     
     @Override

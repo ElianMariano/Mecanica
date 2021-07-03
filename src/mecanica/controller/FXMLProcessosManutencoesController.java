@@ -24,20 +24,22 @@ import javafx.stage.Stage;
 import mecanica.model.dao.ManutencaoDAO;
 import mecanica.model.dao.ManutencaoServicoDAO;
 import mecanica.model.dao.ServicoDAO;
+import mecanica.model.dao.VeiculoDAO;
 import mecanica.model.database.PostgreSQL;
 import mecanica.model.domain.Manutencao;
 import mecanica.model.domain.ManutencaoServico;
 import mecanica.model.domain.Servicos;
+import mecanica.model.domain.Veiculo;
 
-public class FXMLCadastrosManutencoesController implements Initializable {
+public class FXMLProcessosManutencoesController implements Initializable {
 
     @FXML
-    private TableView<ManutencaoServico> tableViewManutencao;
+    private TableView<Manutencao> tableViewManutencao;
     @FXML
-    private TableColumn<ManutencaoServico, Integer> tableColumnCodigo;
+    private TableColumn<Manutencao, Integer> tableColumnCodigo;
     @FXML
-    private TableColumn<ManutencaoServico, Date> tableColumnData;
-    private ObservableList<ManutencaoServico> observableListMs;
+    private TableColumn<Manutencao, Date> tableColumnData;
+    private ObservableList<Manutencao> observableListManutencao;
     
     @FXML
     private Label labelCodigo;
@@ -47,13 +49,14 @@ public class FXMLCadastrosManutencoesController implements Initializable {
     private Label labelInicio;
     @FXML
     private Label labelFim;
+    
+    // DADOS DO SERVICO
     @FXML
-    private TableView<Manutencao> tableViewVeiculos;
+    private Label labelPlaca;
     @FXML
-    private TableColumn<Manutencao, Integer> tableColumnPlaca;
+    private Label labelNome;
     @FXML
-    private TableColumn<Manutencao, Integer> tableColumnVeiculoCodigo;
-    private ObservableList<Manutencao> observableListManutencao;
+    private Label labelMarca;
     
     @FXML
     private TableView<Servicos> tableViewServicos;
@@ -62,13 +65,6 @@ public class FXMLCadastrosManutencoesController implements Initializable {
     @FXML
     private TableColumn<Servicos, Integer> tableColumnServicoNome;
     private ObservableList<Servicos> observableListServico;
-    
-    @FXML
-    private Button buttonInserir;
-    @FXML
-    private Button buttonAlterar;
-    @FXML
-    private Button buttonRemover;
     
     // Listas de dados
     private List<Manutencao> listManutencao;
@@ -79,43 +75,39 @@ public class FXMLCadastrosManutencoesController implements Initializable {
     private final PostgreSQL postgresql = new PostgreSQL();
     private final Connection connection = postgresql.conectar();
     // DAO's
-    private ServicoDAO servicoDao = new ServicoDAO();
-    private ManutencaoDAO manutencaoDao = new ManutencaoDAO();
-    private ManutencaoServicoDAO msDao = new ManutencaoServicoDAO();
+    private final ServicoDAO servicoDao = new ServicoDAO();
+    private final ManutencaoDAO manutencaoDao = new ManutencaoDAO();
+    private final ManutencaoServicoDAO msDao = new ManutencaoServicoDAO();
+    private final VeiculoDAO veiculoDao = new VeiculoDAO();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         manutencaoDao.setConnection(connection);
         servicoDao.setConnection(connection);
         msDao.setConnection(connection);
+        veiculoDao.setConnection(connection);
         
         carregarTableViewManutencao();
-        carregarTableViewSecundarios();
 
         // Listener acionado quando alterações ocorrem no tableview
          tableViewManutencao.getSelectionModel().selectedItemProperty().addListener(
          (observable, oldValue, newValue) -> selecionarTableViewManutencoes(newValue));
     }
     
-    public void selecionarTableViewManutencoes(ManutencaoServico ms){
+    public void selecionarTableViewManutencoes(Manutencao ms){
         if (ms != null){
-            // Define os textos da ManutencaoServico
-            labelCodigo.setText(String.valueOf(ms));
+            labelCodigo.setText(String.valueOf(ms.getCodigo()));
             labelDia.setText(ms.getDia().toString());
             labelInicio.setText(ms.getInicio());
             labelFim.setText(ms.getFim());
             
-            // Carrega os dados da manutencao
-            listManutencao = manutencaoDao.listar();
+            Veiculo veiculo = veiculoDao.buscar(ms.getVeiculo());
+            labelPlaca.setText(veiculo.getPlaca());
+            labelNome.setText(veiculo.getNome());
+            labelMarca.setText(veiculo.getMarca());
             
-            observableListManutencao = FXCollections.observableArrayList(listManutencao);
-            tableViewVeiculos.setItems(observableListManutencao);
-            
-            // Carrega os dados do servico
-            listServico = servicoDao.listar();
-            
-            observableListServico = FXCollections.observableArrayList(listServico);
-            tableViewServicos.setItems(observableListServico);
+            // Obtem todos os servicos relacionados a um veiculo especifico
+            carregarTableViewServicos(veiculo);
         }
         else{
             labelCodigo.setText("");
@@ -123,40 +115,41 @@ public class FXMLCadastrosManutencoesController implements Initializable {
             labelInicio.setText("");
             labelFim.setText("");
             
-            observableListManutencao = FXCollections.observableArrayList(new ArrayList<>());
-            tableViewVeiculos.setItems(observableListManutencao);
+            labelPlaca.setText("");
+            labelNome.setText("");
+            labelMarca.setText("");
             
             observableListServico = FXCollections.observableArrayList(new ArrayList<>());
             tableViewServicos.setItems(observableListServico);
         }
     }
     
-    public void carregarTableViewSecundarios(){
-        // Carrega o tableViewVeiculos
-        tableColumnVeiculoCodigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
-        tableColumnPlaca.setCellValueFactory(new PropertyValueFactory<>("veiculo"));
-        
+    public void carregarTableViewServicos(Veiculo veiculo){
         // Carrega o tableViewServico
         tableColumnServicoCodigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
         tableColumnServicoNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         
+        listServico = servicoDao.listarPorVeiculo(veiculo);
+        
+        observableListServico = FXCollections.observableArrayList(listServico);
+        tableViewServicos.setItems(observableListServico);
     }
 
     public void carregarTableViewManutencao() {
         tableColumnCodigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
         tableColumnData.setCellValueFactory(new PropertyValueFactory<>("dia"));
 
-        listMs = msDao.listar();
+        listManutencao = manutencaoDao.listar();
         
-        observableListMs = FXCollections.observableArrayList(listMs);
-        tableViewManutencao.setItems(observableListMs);
+        observableListManutencao = FXCollections.observableArrayList(listManutencao);
+        tableViewManutencao.setItems(observableListManutencao);
     }
 
     public boolean showCadastrosManutencoesDialog(Manutencao manutencao) throws IOException {
         // Carrega o fxml ManutencoesDialog
         FXMLLoader loader = new FXMLLoader();
-        String url = "/mecanica/view/FXMLCadastrosManutencoesDialog.fxml";
-        loader.setLocation(FXMLCadastrosManutencoesDialogController.class.getResource(url));
+        String url = "/mecanica/view/FXMLProcessosManutencoesDialog.fxml";
+        loader.setLocation(FXMLProcessosManutencoesDialogController.class.getResource(url));
         AnchorPane page = (AnchorPane) loader.load();
 
         // Cria uma cena com ManutencoesDialog
@@ -166,7 +159,7 @@ public class FXMLCadastrosManutencoesController implements Initializable {
         dialogStage.setScene(scene);
 
         // Define o dialogStage e o manutencao
-        FXMLCadastrosManutencoesDialogController controller = loader.getController();
+        FXMLProcessosManutencoesDialogController controller = loader.getController();
         controller.setDialogStage(dialogStage);
         controller.setManutencao(manutencao);
 

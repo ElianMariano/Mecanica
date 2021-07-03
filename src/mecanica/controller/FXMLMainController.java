@@ -55,7 +55,7 @@ public class FXMLMainController implements Initializable {
 
     @FXML
     public void handleProcessosManutencoes() throws IOException {
-        String url = "/mecanica/view/FXMLCadastrosManutencoes.fxml";
+        String url = "/mecanica/view/FXMLProcessosManutencoes.fxml";
         AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource(url));
         anchorPane.getChildren().setAll(a);
     }

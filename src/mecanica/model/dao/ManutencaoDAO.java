@@ -27,11 +27,15 @@ public class ManutencaoDAO {
     }
 
     public boolean inserir(Manutencao manutencao) {
-        String sql = "INSERT INTO manutencao (cod_manutencao, cod_veiculo) VALUES (?,?);";
+        String sql = "INSERT INTO manutencao (descricao, dia, inicio, fim, cod_veiculo) VALUES (?,?,?,?,?);";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, manutencao.getCodigo());
-            stmt.setString(2, manutencao.getVeiculo().getPlaca());
+            stmt.setString(2, manutencao.getDescricao());
+            stmt.setString(3, manutencao.getDia().toString());
+            stmt.setString(4, manutencao.getInicio());
+            stmt.setString(5, manutencao.getFim());
+            stmt.setString(6, manutencao.getVeiculo().getPlaca());
             stmt.execute();
             return true;
         } catch (SQLException ex) {
@@ -41,11 +45,15 @@ public class ManutencaoDAO {
     }
 
     public boolean alterar(Manutencao manutencao) {
-        String sql = "UPDATE manutencao SET cod_veiculo=? WHERE cod_manutencao=?;";
+        String sql = "UPDATE manutencao SET cod_veiculo=?. descricao=?, dia=?, inicio=?, fim=? WHERE cod_manutencao=?;";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, manutencao.getVeiculo().getPlaca());
-            stmt.setInt(2, manutencao.getCodigo());
+            stmt.setString(2, manutencao.getDescricao());
+            stmt.setString(3, manutencao.getDia().toString());
+            stmt.setString(4, manutencao.getInicio());
+            stmt.setString(5, manutencao.getFim());
+            stmt.setInt(6, manutencao.getCodigo());
             stmt.execute();
             return true;
         } catch (SQLException ex) {
@@ -104,32 +112,11 @@ public class ManutencaoDAO {
                 
                 // Define obtem a placa do veiculo e adiciona o objeto na manutencao
                 manutencao.setCodigo(resultado.getInt("cod_manutencao"));
-                veiculo.setPlaca(resultado.getString("cod_veiculo"));
+                manutencao.setDescricao(resultado.getString("descricao"));
+                manutencao.setDia(resultado.getDate("dia"));
+                manutencao.setInicio(resultado.getString("inicio"));
+                manutencao.setFim(resultado.getString("fim"));
                 
-                manutencao.setVeiculo(veiculo);
-                retorno.add(manutencao);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(ManutencaoDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return retorno;
-    }
-    
-    public List<Manutencao> listarPorVeiculo(Veiculo v) {
-        String sql = "SELECT * FROM manutencao WHERE cod_veiculo=?;";
-        List<Manutencao> retorno = new ArrayList<>();
-        try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setString(1, v.getPlaca());
-            ResultSet resultado = stmt.executeQuery();
-
-            while (resultado.next()) {
-                // Objetos de manutencao e veiculo
-                Manutencao manutencao = new Manutencao();
-                Veiculo veiculo = new Veiculo();
-                
-                // Define obtem a placa do veiculo e adiciona o objeto na manutencao
-                manutencao.setCodigo(resultado.getInt("cod_manutencao"));
                 veiculo.setPlaca(resultado.getString("cod_veiculo"));
                 
                 manutencao.setVeiculo(veiculo);
@@ -152,6 +139,10 @@ public class ManutencaoDAO {
                 Veiculo veiculo = new Veiculo();
                 veiculo.setPlaca(resultado.getString("cod_veiculo"));
                 manutencao.setCodigo(resultado.getInt("cod_manutencao"));
+                manutencao.setDescricao(resultado.getString("descricao"));
+                manutencao.setDia(resultado.getDate("dia"));
+                manutencao.setInicio(resultado.getString("inicio"));
+                manutencao.setFim(resultado.getString("fim"));
                 
                 // Adiciona o veiculo
                 manutencao.setVeiculo(veiculo);

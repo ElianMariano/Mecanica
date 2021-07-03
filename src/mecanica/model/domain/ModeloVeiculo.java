@@ -43,7 +43,6 @@ public class ModeloVeiculo implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("(Código: %d, Moto: %b, Nome: %s, Descrição: %s)",
-                this.codigo, this.moto, this.nome, this.descricao);
+        return this.nome;
     }
 }

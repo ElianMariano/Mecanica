@@ -24,16 +24,13 @@ public class ManutencaoServicoDAO {
     }
     
     public boolean inserir(ManutencaoServico ms){
-        String sql = "INSERT INTO manutencao_servico(codigo_ms, cod_manutencao,"
-                + " cod_servico, dia, inicio, fim) VALUES (?,?,?,?,?,?);";
+        String sql = "INSERT INTO manutencao_servico(cod_manutencao,"
+                + " cod_servico) VALUES (?,?);";
         try{
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, ms.getCodigo());
             stmt.setInt(2, ms.getManutencao().getCodigo());
             stmt.setInt(3, ms.getServico().getCodigo());
-            stmt.setString(4, ms.getDia().toString());
-            stmt.setString(5, ms.getInicio());
-            stmt.setString(6, ms.getFim());
             
             stmt.execute();
             return true;
@@ -44,15 +41,12 @@ public class ManutencaoServicoDAO {
     }
     
     public boolean alterar(ManutencaoServico ms){
-        String sql = "UPDATE * manutencao_servico SET cod_manutencao=?, cod_servico=?, dia=?, inicio=?, fim=? WHERE codigo_ms=?;";
+        String sql = "UPDATE * manutencao_servico SET cod_manutencao=?, cod_servico=? WHERE codigo_ms=?;";
         
         try{
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, ms.getManutencao().getCodigo());
             stmt.setInt(2, ms.getServico().getCodigo());
-            stmt.setString(3, ms.getDia().toString());
-            stmt.setString(4, ms.getInicio());
-            stmt.setString(5, ms.getFim());
             stmt.setInt(6, ms.getCodigo());
             
             stmt.execute();
@@ -103,9 +97,6 @@ public class ManutencaoServicoDAO {
                 ms.setCodigo(resultado.getInt("codigo_ms"));
                 ms.setManutencao(manutencao);
                 ms.setServico(servico);
-                ms.setDia(resultado.getDate("dia"));
-                ms.setInicio(resultado.getString("inicio"));
-                ms.setFim(resultado.getString("fim"));
                 
                 // Adiciona na lista
                 retorno.add(ms);

@@ -44,7 +44,7 @@ public class Servicos implements Serializable {
     @Override
     public String toString() {
 
-        return String.format("(Codigo: %d, Nome: %s, Descrição: %s, Preço: %.2f)",
-                codigo, nome, descricao, preco);
+        return String.format("Nome: %s, Preço: %.2f",
+                nome, preco);
     }
 }

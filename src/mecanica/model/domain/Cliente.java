@@ -52,7 +52,6 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("(CPF: %s, Nome: %s, Nascimento: %s, Cidade: %s, UF: %s)",
-                cpf, nome, nascimento, cidade, uf);
+        return this.nome;
     }
 }

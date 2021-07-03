@@ -52,6 +52,6 @@ public class Veiculo implements Serializable {
 
     @Override
     public String toString() {
-        return this.nome;
+        return String.format("Placa: %s, %s", this.placa, this.nome);
     }
 }

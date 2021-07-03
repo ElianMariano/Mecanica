@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.chart.PieChart;
 import mecanica.model.domain.Servicos;
+import mecanica.model.domain.Veiculo;
 import org.postgresql.util.PSQLException;
 
 public class ServicoDAO {
@@ -121,7 +122,38 @@ public class ServicoDAO {
         }
         return retorno;
     }
+    
+    // Retorna os servicos realizados por dado veiculo
+    public List<Servicos> listarPorVeiculo(Veiculo veiculo) {
+        String sql = "SELECT    s.cod_servico AS codigo, s.nome,\n" +
+"		s.descricao, s.preco\n" +
+"	FROM servico s\n" +
+"	INNER JOIN manutencao_servico ms ON ms.cod_servico = s.cod_servico\n" +
+"	INNER JOIN manutencao m ON m.cod_manutencao = ms.cod_manutencao\n" +
+"	INNER JOIN veiculo v ON v.placa = m.cod_veiculo\n" +
+"	WHERE v.placa = ?;";
+        
+        List<Servicos> retorno = new ArrayList<>();
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, veiculo.getPlaca());
+            ResultSet resultado = stmt.executeQuery();
 
+            while (resultado.next()) {
+                Servicos servico = new Servicos();
+                servico.setCodigo(resultado.getInt("codigo"));
+                servico.setNome(resultado.getString("nome"));
+                servico.setDescricao(resultado.getString("descricao"));
+                servico.setPreco(resultado.getDouble("preco"));
+                
+                retorno.add(servico);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServicoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return retorno;
+    }
+     
     public Servicos buscar(Servicos servico) {
         String sql = "SELECT * FROM servico WHERE cod_servico=?;";
         Servicos retorno = new Servicos();

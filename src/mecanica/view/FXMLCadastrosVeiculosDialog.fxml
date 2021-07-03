@@ -14,44 +14,44 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="367.0" prefWidth="506.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mecanica.controller.FXMLCadastrosVeiculosDialogController">
+<AnchorPane id="AnchorPane" prefHeight="394.0" prefWidth="462.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mecanica.controller.FXMLCadastrosVeiculosDialogController">
    <children>
-      <Label layoutX="154.0" layoutY="14.0" text="Informe os dados do Veículo">
+      <Label layoutX="103.0" layoutY="14.0" styleClass="info-title" text="Informe os dados do Veículo">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <GridPane layoutX="67.0" layoutY="46.0" prefHeight="242.0" prefWidth="372.0">
+      <GridPane layoutX="45.0" layoutY="48.0" prefHeight="287.0" prefWidth="372.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="183.0" minWidth="0.0" prefWidth="69.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="312.0" minWidth="10.0" prefWidth="303.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="183.0" minWidth="0.0" prefWidth="56.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="316.0" minWidth="10.0" prefWidth="316.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="43.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="67.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="76.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="88.0" minHeight="10.0" prefHeight="37.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="87.0" minHeight="10.0" prefHeight="87.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="43.0" minHeight="4.0" prefHeight="24.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="92.0" minHeight="10.0" prefHeight="27.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="94.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="107.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="159.0" minHeight="10.0" prefHeight="155.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label alignment="CENTER" text="Placa" textAlignment="CENTER" />
-            <Label alignment="CENTER" text="Nome" textAlignment="CENTER" GridPane.rowIndex="1" />
-            <Label alignment="CENTER" text="Marca" textAlignment="CENTER" GridPane.rowIndex="2" />
-            <Label alignment="CENTER" text="Modelo" textAlignment="CENTER" GridPane.rowIndex="3" />
-            <Label alignment="CENTER" text="Cliente" textAlignment="CENTER" GridPane.rowIndex="4" />
+            <Label alignment="CENTER" styleClass="info-property" text="Placa" textAlignment="CENTER" />
+            <Label alignment="CENTER" styleClass="info-property" text="Nome" textAlignment="CENTER" GridPane.rowIndex="1" />
+            <Label alignment="CENTER" styleClass="info-property" text="Marca" textAlignment="CENTER" GridPane.rowIndex="2" />
+            <Label alignment="CENTER" styleClass="info-property" text="Modelo" textAlignment="CENTER" GridPane.rowIndex="3" />
+            <Label alignment="CENTER" styleClass="info-property" text="Cliente" textAlignment="CENTER" GridPane.rowIndex="4" />
             <TextField fx:id="textFieldPlaca" prefHeight="24.0" prefWidth="182.0" GridPane.columnIndex="1" />
             <TextField fx:id="textFieldNome" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="textFieldMarca" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <ComboBox fx:id="comboBoxModelo" prefHeight="24.0" prefWidth="302.0" promptText="Escolha o modelo" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TableView fx:id="tableViewClientes" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <TableView fx:id="tableViewClientes" prefHeight="120.0" prefWidth="303.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
               <columns>
-                <TableColumn fx:id="tableColumnCpf" prefWidth="95.0" text="CPF" />
-                <TableColumn fx:id="tableColumnNome" prefWidth="207.0" text="Nome" />
+                <TableColumn fx:id="tableColumnCpf" prefWidth="107.0" text="CPF" />
+                <TableColumn fx:id="tableColumnNome" prefWidth="208.0" text="Nome" />
               </columns>
             </TableView>
          </children>
       </GridPane>
-      <Group layoutX="320.0" layoutY="322.0">
+      <Group layoutX="274.0" layoutY="357.0">
          <children>
             <Button fx:id="buttonInserir" mnemonicParsing="false" onAction="#handleButtonConfirmar" text="Inserir" />
             <Button fx:id="buttonCancelar" layoutX="68.0" mnemonicParsing="false" onAction="#handleButtonCancelar" text="Cancelar" />
@@ -60,6 +60,6 @@
    </children>
    <stylesheets>
       <URL value="@styles/global.css" />
-      <URL value="@styles/forms.css" />
+      <URL value="@styles/interface-info.css" />
    </stylesheets>
 </AnchorPane>
