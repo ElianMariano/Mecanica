@@ -206,8 +206,6 @@ public class FXMLProcessosManutencoesController implements Initializable {
                     
                     // Commita as mudancas
                     connection.commit();
-                    
-                    carregarTableViewManutencao();
                 }
                 else{
                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -248,26 +246,25 @@ public class FXMLProcessosManutencoesController implements Initializable {
                 manutencaoDao.setConnection(connection);
                 msDao.setConnection(connection);
                 if (manutencaoDao.horarioDisponivel(manutencao)){
+                    manutencao.setCodigo(atual.getCodigo());
                     // Altera a manutencao
                     manutencaoDao.alterar(manutencao);
                     
-                    // Obtem os dados da lista manutencoes
-                    List<ManutencaoServico> manutencoesAlteradas = manutencao.getManutencaoServico();
-                    
                     // Apaga a lista antiga
-                    for (ManutencaoServico ms : manutencoesAlteradas){
+                    for (ManutencaoServico ms : listManutencoes){
                         msDao.remover(ms);
                     }
                     
+                    listManutencoes = manutencao.getManutencaoServico();
+                    
                     // Insere os dados da nova lista
                     for (ManutencaoServico ms: listManutencoes){
+                        ms.setManutencao(atual);
                         msDao.inserir(ms);
                     }
                     
                     // Commita as mudancas
                     connection.commit();
-                    
-                    carregarTableViewManutencao();
                 }
                 else{
                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -275,11 +272,11 @@ public class FXMLProcessosManutencoesController implements Initializable {
                     alert.show();
                 }
                 
-                // Recarrega os dados da manutencao
                 carregarTableViewManutencao();
             }
             catch (SQLException ex){
                 try{
+                    System.out.println("Rollback");
                     connection.rollback();
                 }
                 catch(SQLException ex1){

@@ -57,6 +57,7 @@ public class ManutencaoDAO {
             stmt.setString(5, manutencao.getFim());
             stmt.setInt(6, manutencao.getCodigo());
             stmt.execute();
+            System.out.println("Editado");
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(ManutencaoDAO.class.getName()).log(Level.SEVERE, null, ex);
