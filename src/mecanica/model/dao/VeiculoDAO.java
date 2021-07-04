@@ -115,6 +115,57 @@ public class VeiculoDAO {
         }
         return retorno;
     }
+    
+    public List<Veiculo> listarPorDono(Cliente dono) {
+        String sql = "SELECT v.placa, v.nome, v.marca,\n" +
+"	   v.cod_cliente, v.cod_modelo\n" +
+"	FROM veiculo v\n" +
+"	INNER JOIN cliente c ON c.cpf = v.cod_cliente\n" +
+"	WHERE c.cpf = ?;";
+        
+        List<Veiculo> retorno = new ArrayList<>();
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, dono.getCpf());
+            ResultSet resultado = stmt.executeQuery();
+
+            while (resultado.next()) {
+                // Instancia as classes
+                Veiculo veiculo = new Veiculo();
+                ModeloVeiculo modelo = new ModeloVeiculo();
+                Cliente cliente = new Cliente();
+                
+                // Obtem os dados do veiculo
+                veiculo.setPlaca(resultado.getString("placa"));
+                veiculo.setNome(resultado.getString("nome"));
+                veiculo.setMarca(resultado.getString("marca"));
+                
+                // Define os indices do modelo e cliente
+                modelo.setCodigo(resultado.getInt("cod_modelo"));
+                cliente.setCpf(resultado.getString("cod_cliente"));
+                
+                // Obtem os dados do ModeloVeiculo
+                ModeloVeiculoDAO modeloDao = new ModeloVeiculoDAO();
+                modeloDao.setConnection(connection);
+                modelo = modeloDao.buscar(modelo);
+                
+                // Obtem os dados do cliente
+                ClienteDAO clienteDao = new ClienteDAO();
+                clienteDao.setConnection(connection);
+                cliente = clienteDao.buscar(cliente);
+                
+                // Atribui o cliente e o modelo ao veiculo
+                veiculo.setModelo(modelo);
+                veiculo.setCliente(cliente);
+                
+                retorno.add(veiculo);
+                //Lembrar de mudar o nome e o tipo das variaveis no banco(modelo e cliente);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(VeiculoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return retorno;
+    }
 
     public Veiculo buscar(Veiculo veiculo) {
         String sql = "SELECT * FROM veiculo WHERE placa=?;";

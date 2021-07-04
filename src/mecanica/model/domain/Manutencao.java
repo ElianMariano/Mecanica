@@ -1,15 +1,27 @@
 package mecanica.model.domain;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.ArrayList;
+import java.time.LocalDate;
+import java.util.List;
 
 public class Manutencao implements Serializable {
     private int codigo;
     private Veiculo veiculo;
-    private Date dia;
+    private LocalDate dia;
     private String inicio;
     private String fim;
     private String descricao;
+    // Dados de manutencao_servico
+    List<ManutencaoServico> ms = new ArrayList<>();
+    
+    public List<ManutencaoServico> getManutencaoServico(){
+        return this.ms;
+    }
+    
+    public void setManutencaoServico(List<ManutencaoServico> ms){
+        this.ms = ms;
+    }
 
     public int getCodigo() {
         return this.codigo;
@@ -27,11 +39,11 @@ public class Manutencao implements Serializable {
         this.veiculo = veiculo;
     }
     
-    public Date getDia(){
+    public LocalDate getDia(){
         return this.dia;
     }
     
-    public void setDia(Date dia){
+    public void setDia(LocalDate dia){
         this.dia = dia;
     }
     

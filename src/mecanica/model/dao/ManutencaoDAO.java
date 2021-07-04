@@ -11,7 +11,10 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.chart.PieChart;
+import java.sql.Date;
 import mecanica.model.domain.Manutencao;
+import java.sql.Time;
+import java.time.LocalDateTime;
 import mecanica.model.domain.Veiculo;
 
 public class ManutencaoDAO {
@@ -27,15 +30,14 @@ public class ManutencaoDAO {
     }
 
     public boolean inserir(Manutencao manutencao) {
-        String sql = "INSERT INTO manutencao (descricao, dia, inicio, fim, cod_veiculo) VALUES (?,?,?,?,?);";
+        String sql = "INSERT INTO manutencao (descricao, dia, inicio, fim, cod_veiculo) VALUES (?,?,Cast(? AS TIME),Cast(? AS TIME),?)";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, manutencao.getCodigo());
-            stmt.setString(2, manutencao.getDescricao());
-            stmt.setString(3, manutencao.getDia().toString());
-            stmt.setString(4, manutencao.getInicio());
-            stmt.setString(5, manutencao.getFim());
-            stmt.setString(6, manutencao.getVeiculo().getPlaca());
+            stmt.setString(1, manutencao.getDescricao());
+            stmt.setDate(2, Date.valueOf(manutencao.getDia()));
+            stmt.setString(3, manutencao.getInicio());
+            stmt.setString(4, manutencao.getFim());
+            stmt.setString(5, manutencao.getVeiculo().getPlaca());
             stmt.execute();
             return true;
         } catch (SQLException ex) {
@@ -45,12 +47,12 @@ public class ManutencaoDAO {
     }
 
     public boolean alterar(Manutencao manutencao) {
-        String sql = "UPDATE manutencao SET cod_veiculo=?. descricao=?, dia=?, inicio=?, fim=? WHERE cod_manutencao=?;";
+        String sql = "UPDATE manutencao SET cod_veiculo=?, descricao=?, dia=?, inicio=Cast(? AS TIME), fim=Cast(? AS TIME) WHERE cod_manutencao=?;";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, manutencao.getVeiculo().getPlaca());
             stmt.setString(2, manutencao.getDescricao());
-            stmt.setString(3, manutencao.getDia().toString());
+            stmt.setDate(3, Date.valueOf(manutencao.getDia()));
             stmt.setString(4, manutencao.getInicio());
             stmt.setString(5, manutencao.getFim());
             stmt.setInt(6, manutencao.getCodigo());
@@ -74,25 +76,29 @@ public class ManutencaoDAO {
             return false;
         }
     }
-
-    public Map<Integer, Manutencao> quantidadeServicos(){
-        String sql = "SELECT COUNT(ms) AS quantidade, m.cod_manutencao, \n" + 
-"           m.descricao, m.cod_veiculo\n" +
+    
+    // Retorna true se o horario é disponivel
+    public boolean horarioDisponivel(Manutencao manutencao) {
+        String sql = "SELECT (COUNT(*) = 0) disponivel\n" +
 "	FROM manutencao m\n" +
-"	GROUP BY m.cod_manutencao, m.descricao, m.cod_veiculo\n" +
-"	ORDER BY quantidade;";
+"	WHERE m.dia = ? AND \n" +
+"	((Cast(? AS TIME) < m.inicio OR Cast(? AS TIME) < m.fim) AND\n" +
+"	(Cast(? AS TIME) > m.inicio OR Cast(? AS TIME) > m.fim));";
         
-        Map<Integer, Manutencao> retorno = new HashMap<>();
-        try{
+        boolean retorno = false;
+        try {
             PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setDate(1, Date.valueOf(manutencao.getDia()));
+            stmt.setString(2, manutencao.getInicio());
+            stmt.setString(3, manutencao.getInicio());
+            stmt.setString(4, manutencao.getFim());
+            stmt.setString(5, manutencao.getFim());
             ResultSet resultado = stmt.executeQuery();
             
-            while(resultado.next()){
-                Manutencao manutencao = new Manutencao();
-            }
-        }
-        catch (SQLException ex) {
-            Logger.getLogger(ServicoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            // Valor de retorno
+            if (resultado.next()) retorno = resultado.getBoolean("disponivel");
+        } catch (SQLException ex) {
+            Logger.getLogger(ManutencaoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return retorno;
@@ -113,7 +119,7 @@ public class ManutencaoDAO {
                 // Define obtem a placa do veiculo e adiciona o objeto na manutencao
                 manutencao.setCodigo(resultado.getInt("cod_manutencao"));
                 manutencao.setDescricao(resultado.getString("descricao"));
-                manutencao.setDia(resultado.getDate("dia"));
+                manutencao.setDia(resultado.getDate("dia").toLocalDate());
                 manutencao.setInicio(resultado.getString("inicio"));
                 manutencao.setFim(resultado.getString("fim"));
                 
@@ -140,7 +146,7 @@ public class ManutencaoDAO {
                 veiculo.setPlaca(resultado.getString("cod_veiculo"));
                 manutencao.setCodigo(resultado.getInt("cod_manutencao"));
                 manutencao.setDescricao(resultado.getString("descricao"));
-                manutencao.setDia(resultado.getDate("dia"));
+                manutencao.setDia(resultado.getDate("dia").toLocalDate());
                 manutencao.setInicio(resultado.getString("inicio"));
                 manutencao.setFim(resultado.getString("fim"));
                 
@@ -148,6 +154,22 @@ public class ManutencaoDAO {
                 manutencao.setVeiculo(veiculo);
 
                 retorno = manutencao;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ManutencaoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return retorno;
+    }
+    
+    public Manutencao buscarUltimaManutencao() {
+        String sql = "SELECT MAX(m.cod_manutencao) AS cod_manutencao "
+                + "FROM manutencao m;";
+        Manutencao retorno = new Manutencao();
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            ResultSet resultado = stmt.executeQuery();
+            if (resultado.next()) {
+                retorno.setCodigo(resultado.getInt("cod_manutencao"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ManutencaoDAO.class.getName()).log(Level.SEVERE, null, ex);

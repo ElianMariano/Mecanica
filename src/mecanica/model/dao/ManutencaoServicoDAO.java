@@ -25,12 +25,11 @@ public class ManutencaoServicoDAO {
     
     public boolean inserir(ManutencaoServico ms){
         String sql = "INSERT INTO manutencao_servico(cod_manutencao,"
-                + " cod_servico) VALUES (?,?);";
+                + " cod_servico) VALUES (?,?)";
         try{
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, ms.getCodigo());
-            stmt.setInt(2, ms.getManutencao().getCodigo());
-            stmt.setInt(3, ms.getServico().getCodigo());
+            stmt.setInt(1, ms.getManutencao().getCodigo());
+            stmt.setInt(2, ms.getServico().getCodigo());
             
             stmt.execute();
             return true;
@@ -59,7 +58,7 @@ public class ManutencaoServicoDAO {
     }
     
     public boolean remover(ManutencaoServico ms){
-        String sql = "DELETE * manutencao_servico WHERE codigo_ms = ?;";
+        String sql = "DELETE FROM manutencao_servico WHERE codigo_ms = ?;";
         
         try{
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -80,6 +79,42 @@ public class ManutencaoServicoDAO {
         
         try{
             PreparedStatement stmt = connection.prepareStatement(sql);
+            ResultSet resultado = stmt.executeQuery();
+            
+            while(resultado.next()){
+                // Instancia os objetos
+                ManutencaoServico ms = new ManutencaoServico();
+                
+                // Define os dados da manutencao e do servico
+                Manutencao manutencao = new Manutencao();
+                Servicos servico = new Servicos();
+                
+                manutencao.setCodigo(resultado.getInt("cod_manutencao"));
+                servico.setCodigo(resultado.getInt("cod_servico"));
+                
+                // Define esses dados no Manutencao Servico
+                ms.setCodigo(resultado.getInt("codigo_ms"));
+                ms.setManutencao(manutencao);
+                ms.setServico(servico);
+                
+                // Adiciona na lista
+                retorno.add(ms);
+            }
+        }
+        catch(SQLException ex){
+            Logger.getLogger(ManutencaoServicoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return retorno;
+    }
+    
+    public List<ManutencaoServico> listarPorManutencao(Manutencao m){
+        String sql = "SELECT * FROM manutencao_servico WHERE cod_manutencao = ?;";
+        List<ManutencaoServico> retorno = new ArrayList<>();
+        
+        try{
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, m.getCodigo());
             ResultSet resultado = stmt.executeQuery();
             
             while(resultado.next()){

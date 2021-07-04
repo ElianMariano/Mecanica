@@ -17,8 +17,8 @@
       <GridPane layoutX="14.0" layoutY="46.0" prefHeight="85.0" prefWidth="332.0">
         <columnConstraints>
           <ColumnConstraints maxWidth="0.0" minWidth="0.0" prefWidth="0.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="122.0" minWidth="10.0" prefWidth="92.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="212.0" minWidth="10.0" prefWidth="212.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="122.0" minWidth="10.0" prefWidth="87.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="245.0" minWidth="10.0" prefWidth="245.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="54.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
@@ -26,7 +26,7 @@
             <RowConstraints maxHeight="119.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label alignment="CENTER" styleClass="info-property" text="Código Modelo" textAlignment="CENTER" GridPane.columnIndex="1" />
+            <Label alignment="CENTER" styleClass="info-property" text="Código" textAlignment="CENTER" GridPane.columnIndex="1" />
             <Label alignment="CENTER" styleClass="info-property" text="Nome" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label alignment="CENTER" styleClass="info-property" text="Descrição" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="textFieldCodigo" prefHeight="24.0" prefWidth="123.0" GridPane.columnIndex="2" />

@@ -10,9 +10,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TableColumn;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -44,13 +47,14 @@ public class FXMLProcessosManutencoesController implements Initializable {
     @FXML
     private Label labelCodigo;
     @FXML
+    private Label labelDescricao;
+    @FXML
     private Label labelDia;
     @FXML
     private Label labelInicio;
     @FXML
     private Label labelFim;
     
-    // DADOS DO SERVICO
     @FXML
     private Label labelPlaca;
     @FXML
@@ -79,6 +83,8 @@ public class FXMLProcessosManutencoesController implements Initializable {
     private final ManutencaoDAO manutencaoDao = new ManutencaoDAO();
     private final ManutencaoServicoDAO msDao = new ManutencaoServicoDAO();
     private final VeiculoDAO veiculoDao = new VeiculoDAO();
+    
+    private Manutencao manutencao = new Manutencao();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -97,6 +103,7 @@ public class FXMLProcessosManutencoesController implements Initializable {
     public void selecionarTableViewManutencoes(Manutencao ms){
         if (ms != null){
             labelCodigo.setText(String.valueOf(ms.getCodigo()));
+            labelDescricao.setText(Utils.quebrarLinha(ms.getDescricao(), 4));
             labelDia.setText(ms.getDia().toString());
             labelInicio.setText(ms.getInicio());
             labelFim.setText(ms.getFim());
@@ -111,6 +118,7 @@ public class FXMLProcessosManutencoesController implements Initializable {
         }
         else{
             labelCodigo.setText("");
+            labelDescricao.setText("");
             labelDia.setText("");
             labelInicio.setText("");
             labelFim.setText("");
@@ -162,9 +170,11 @@ public class FXMLProcessosManutencoesController implements Initializable {
         FXMLProcessosManutencoesDialogController controller = loader.getController();
         controller.setDialogStage(dialogStage);
         controller.setManutencao(manutencao);
-
         // Mostra o ManutencoesDialog e espera
         dialogStage.showAndWait();
+        
+        // Obtem a manutencao
+        this.manutencao = controller.getManutencao();
 
         // Retorna true se o botao confirmar for clicado
         return controller.isButtonConfirmarClicked();
@@ -172,47 +182,149 @@ public class FXMLProcessosManutencoesController implements Initializable {
 
     @FXML
     public void handleButtonInserir() throws IOException {
-        Manutencao manutencao = new Manutencao();
-
         // Obtem verdadeiro se a manutenção for inserida
-        boolean buttonConfirmarClicked = showCadastrosManutencoesDialog(manutencao);
+        boolean buttonConfirmarClicked = showCadastrosManutencoesDialog(new Manutencao());
         if (buttonConfirmarClicked) {
             // Insere a manutenção no banco de dados
-            manutencaoDao.inserir(manutencao);
-            // Recarrega os dados da manutencao
-            carregarTableViewManutencao();
+            List<ManutencaoServico> manutencaoServico = manutencao.getManutencaoServico();
+            
+            try{
+                connection.setAutoCommit(false);
+                // Define a conexao
+                manutencaoDao.setConnection(connection);
+                msDao.setConnection(connection);
+                if (manutencaoDao.horarioDisponivel(manutencao)){
+                    // Insere os dados
+                    manutencaoDao.inserir(manutencao);
+                    
+                    // Obtem os dado da manutencao
+                    manutencao = manutencaoDao.buscarUltimaManutencao();
+                    for (ManutencaoServico ms : manutencaoServico){
+                        ms.setManutencao(manutencao);
+                        msDao.inserir(ms);
+                    }
+                    
+                    // Commita as mudancas
+                    connection.commit();
+                    
+                    carregarTableViewManutencao();
+                }
+                else{
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setContentText("Horário não disponível");
+                    alert.show();
+                }
+                
+                // Recarrega os dados da manutencao
+                carregarTableViewManutencao();
+            }
+            catch (SQLException ex){
+                try{
+                    connection.rollback();
+                }
+                catch(SQLException ex1){
+                    Logger.getLogger(FXMLProcessosManutencoesController.class.getName()).log(Level.SEVERE, null, ex1);
+                }
+                Logger.getLogger(FXMLProcessosManutencoesController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
     @FXML
     public void handleButtonAlterar() throws IOException {
-//        Manutencao manutencao = tableViewManutencao.getSelectionModel().getSelectedItem();
-//
-//        if (manutencao != null) {
-//            boolean buttonConfirmarClicked = showCadastrosManutencoesDialog(manutencao);
-//
-//            if (buttonConfirmarClicked) {
-//                manutencaoDao.alterar(manutencao);
-//                carregarTableViewManutencao();
-//            }
-//        } else {
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setContentText("Por favor, selecione uma manutençao ...");
-//            alert.show();
-//        }
+        // Obtem a manutencao atual
+        Manutencao atual = tableViewManutencao.getSelectionModel().getSelectedItem();
+        
+        // Obtem todos os dados relacionados a manutencao atual
+        List<ManutencaoServico> listManutencoes = msDao.listarPorManutencao(atual);
+        atual.setManutencaoServico(listManutencoes);
+        
+        // Obtem se a manutencao foi alterada
+        boolean buttonConfirmarClicked = showCadastrosManutencoesDialog(atual);
+        
+        if (buttonConfirmarClicked){
+            try{
+                connection.setAutoCommit(false);
+                manutencaoDao.setConnection(connection);
+                msDao.setConnection(connection);
+                if (manutencaoDao.horarioDisponivel(manutencao)){
+                    // Altera a manutencao
+                    manutencaoDao.alterar(manutencao);
+                    
+                    // Obtem os dados da lista manutencoes
+                    List<ManutencaoServico> manutencoesAlteradas = manutencao.getManutencaoServico();
+                    
+                    // Apaga a lista antiga
+                    for (ManutencaoServico ms : manutencoesAlteradas){
+                        msDao.remover(ms);
+                    }
+                    
+                    // Insere os dados da nova lista
+                    for (ManutencaoServico ms: listManutencoes){
+                        msDao.inserir(ms);
+                    }
+                    
+                    // Commita as mudancas
+                    connection.commit();
+                    
+                    carregarTableViewManutencao();
+                }
+                else{
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setContentText("Horário não disponível");
+                    alert.show();
+                }
+                
+                // Recarrega os dados da manutencao
+                carregarTableViewManutencao();
+            }
+            catch (SQLException ex){
+                try{
+                    connection.rollback();
+                }
+                catch(SQLException ex1){
+                    Logger.getLogger(FXMLProcessosManutencoesController.class.getName()).log(Level.SEVERE, null, ex1);
+                }
+                Logger.getLogger(FXMLProcessosManutencoesController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     @FXML
     public void handleButtonRemover() throws IOException {
-//        Manutencao manutencao = tableViewManutencao.getSelectionModel().getSelectedItem();
-//
-//        if (manutencao != null) {
-//            manutencaoDao.remover(manutencao);
-//            carregarTableViewManutencao();
-//        } else {
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setContentText("Por favor, selecione uma manutenção ...");
-//            alert.show();
-//        }
+        Manutencao manutencao = tableViewManutencao.getSelectionModel().getSelectedItem();
+        
+        List<ManutencaoServico> manutencaoServico = msDao.listarPorManutencao(manutencao);
+        
+        try{
+            connection.setAutoCommit(false);
+            // Define a conexao
+            manutencaoDao.setConnection(connection);
+            msDao.setConnection(connection);
+            
+            // Remove todos os itens referentes a essa manutencao
+            for (ManutencaoServico ms: manutencaoServico)
+                msDao.remover(ms);
+
+            // Insere os dados
+            manutencaoDao.remover(manutencao);
+
+            // Commita as mudancas
+            connection.commit();
+
+            carregarTableViewManutencao();
+
+            // Recarrega os dados da manutencao
+            carregarTableViewManutencao();
+        }
+        catch (SQLException ex){
+            try{
+                connection.rollback();
+            }
+            catch(SQLException ex1){
+                Logger.getLogger(FXMLProcessosManutencoesController.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+            Logger.getLogger(FXMLProcessosManutencoesController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
