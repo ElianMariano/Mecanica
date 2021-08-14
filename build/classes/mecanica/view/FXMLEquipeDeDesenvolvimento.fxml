@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" fx:id="LabelTitulo" prefHeight="366.0" prefWidth="662.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="mecanica.controller.FXMLEquipeDeDesenvolvimentoController">
+<AnchorPane id="AnchorPane" fx:id="LabelTitulo" prefHeight="366.0" prefWidth="662.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mecanica.controller.FXMLEquipeDeDesenvolvimentoController">
    <children>
-      <Label layoutX="148.0" layoutY="55.0" text="Equipe de desenvolvimento">
+      <Label layoutX="148.0" layoutY="45.0" prefHeight="30.0" prefWidth="171.0" text="Equipe de desenvolvimento">
          <font>
             <Font size="30.0" />
          </font>
       </Label>
-      <Label fx:id="LabelIntegrantes" layoutX="134.0" layoutY="153.0" prefHeight="30.0" prefWidth="395.0" text="Integrantes ...">
+      <Label fx:id="LabelIntegrantes" layoutX="134.0" layoutY="153.0" prefHeight="30.0" prefWidth="89.0" text="Integrantes ...">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
    </children>
+   <stylesheets>
+      <URL value="@styles/interface-info.css" />
+      <URL value="@styles/global.css" />
+   </stylesheets>
 </AnchorPane>
