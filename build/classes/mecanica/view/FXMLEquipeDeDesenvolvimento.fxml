@@ -1,25 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import java.net.URL?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="LabelTitulo" prefHeight="366.0" prefWidth="662.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mecanica.controller.FXMLEquipeDeDesenvolvimentoController">
+<AnchorPane id="AnchorPane" fx:id="LabelTitulo" prefHeight="366.0" prefWidth="662.0" styleClass="anchor-pane-teste" stylesheets="@styles/interface-info.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mecanica.controller.FXMLEquipeDeDesenvolvimentoController">
    <children>
-      <Label layoutX="148.0" layoutY="45.0" prefHeight="30.0" prefWidth="171.0" text="Equipe de desenvolvimento">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Label>
-      <Label fx:id="LabelIntegrantes" layoutX="134.0" layoutY="153.0" prefHeight="30.0" prefWidth="89.0" text="Integrantes ...">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
+      <Label layoutX="147.0" layoutY="41.0" styleClass="title-team" text="Equipe de Desenvolvimento" />
+      <Label layoutX="272.0" layoutY="166.0" styleClass="name-team" text="Integrante" />
    </children>
-   <stylesheets>
-      <URL value="@styles/interface-info.css" />
-      <URL value="@styles/global.css" />
-   </stylesheets>
 </AnchorPane>

@@ -8,7 +8,7 @@
 .info-title{
     -fx-text-fill: black;
     -fx-font-size: 16px;
-    font-weight: bold;
+    -fx-font-weight: bold;
 }
 
 .infor-text{
@@ -21,4 +21,20 @@
     -fx-text-fill: black;
     -fx-font-size: 12px;
     -fx-font-weight: bold;
+}
+
+.title-team{
+    -fx-text-fill: #557ed9;
+    -fx-font-size: 32px;
+    font-weight: 500;
+}
+
+.name-team{
+    -fx-text-fill: #557ed9;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+.anchor-pane-teste{
+    -fx-background-color: white;
 }

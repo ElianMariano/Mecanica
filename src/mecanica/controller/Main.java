@@ -7,8 +7,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.application.Application;
-import javafx.fxml.FXML;
-import javafx.scene.layout.AnchorPane;
 
 public class Main extends Application {
 

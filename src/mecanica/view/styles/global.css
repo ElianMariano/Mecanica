@@ -5,7 +5,7 @@
 }
 
 .label{
-    -fx-background-color: #557ed9;
+/*    -fx-background-color: #557ed9;*/
     -fx-text-fill: white;
     -fx-font-size: 14px;
 }

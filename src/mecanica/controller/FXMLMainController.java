@@ -66,4 +66,11 @@ public class FXMLMainController implements Initializable {
         AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource(url));
         anchorPane.getChildren().setAll(a);
     }
+    
+    @FXML
+    public void handleSobreEquipe() throws IOException {
+        String url = "/mecanica/view/FXMLEquipeDeDesenvolvimento.fxml";
+        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource(url));
+        anchorPane.getChildren().setAll(a);
+    }
 }
