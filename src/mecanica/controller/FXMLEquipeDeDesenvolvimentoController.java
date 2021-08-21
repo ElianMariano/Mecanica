@@ -5,15 +5,16 @@
  */
 package mecanica.controller;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import mecanica.controller.sockets.Integrantes;
 
-/**
- * FXML Controller class
- *
- * @author Andre
- */
 public class FXMLEquipeDeDesenvolvimentoController implements Initializable {
 
     /**
@@ -21,7 +22,17 @@ public class FXMLEquipeDeDesenvolvimentoController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        List<String> dados = new ArrayList<>();
+
+        try {
+            dados = Integrantes.obterIntegrantes();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLEquipeDeDesenvolvimentoController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(FXMLEquipeDeDesenvolvimentoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
     }    
     
 }
