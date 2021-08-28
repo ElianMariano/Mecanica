@@ -23,7 +23,7 @@ public class EquipeRunnable implements Runnable{
 
     @Override
     public void run() {
-        while (i < equipe.size()){
+        while (true){
             Platform.runLater(() -> label.setText(equipe.get(i)));
             
             try {
@@ -32,8 +32,7 @@ public class EquipeRunnable implements Runnable{
                 Logger.getLogger(EquipeRunnable.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            if (i < equipe.size()) i++; else i = 0;
+            if (i < (equipe.size()-1)) i++; else i = 0;
         }
     }
-    
 }

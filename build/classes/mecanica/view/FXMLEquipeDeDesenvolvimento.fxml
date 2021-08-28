@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" fx:id="LabelTitulo" prefHeight="366.0" prefWidth="662.0" styleClass="anchor-pane-teste" stylesheets="@styles/interface-info.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mecanica.controller.FXMLEquipeDeDesenvolvimentoController">
+<AnchorPane id="AnchorPane" fx:id="LabelTitulo" prefHeight="366.0" prefWidth="662.0" styleClass="anchor-pane-teste" stylesheets="@styles/interface-info.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mecanica.controller.FXMLEquipeDeDesenvolvimentoController">
    <children>
       <Label layoutX="147.0" layoutY="41.0" styleClass="title-team" text="Equipe de Desenvolvimento" />
-      <Label fx:id="integrantes" layoutX="272.0" layoutY="166.0" styleClass="name-team" text="Integrante" />
+      <Label fx:id="integrantes" layoutX="272.0" layoutY="166.0" styleClass="name-team" text="Integrante" AnchorPane.leftAnchor="200.0" />
    </children>
 </AnchorPane>
