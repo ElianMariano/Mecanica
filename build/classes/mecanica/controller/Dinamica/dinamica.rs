@@ -1,0 +1,2 @@
+mecanica.controller.dinamica.Integrantes
+mecanica.controller.dinamica.dinamica
