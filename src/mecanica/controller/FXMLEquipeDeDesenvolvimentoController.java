@@ -13,13 +13,17 @@ import javafx.fxml.Initializable;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import mecanica.controller.sockets.Integrantes;
+import mecanica.controller.thread.EquipeRunnable;
+
 
 public class FXMLEquipeDeDesenvolvimentoController implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
+    @FXML
+    private Label integrantes;
+ 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         List<String> dados = new ArrayList<>();
@@ -32,7 +36,8 @@ public class FXMLEquipeDeDesenvolvimentoController implements Initializable {
             Logger.getLogger(FXMLEquipeDeDesenvolvimentoController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        
+          Thread t1 = new Thread(new EquipeRunnable(integrantes, dados));
+          t1.start();
     }    
     
 }
